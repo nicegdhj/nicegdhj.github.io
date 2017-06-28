@@ -1,8 +1,8 @@
 ---
 layout: page
 title: "About"
-description: "Hey,this is Jia."
-header-img: "img/post-bg-2015.jpg"
+description: "Hey, this is Jia."
+header-img: "img/post-bg-firework.jpg"
 ---
 
 <center>
@@ -13,35 +13,27 @@ header-img: "img/post-bg-2015.jpg"
 
 “If you can't explain it simply, you don't understand it well enough.”
 
-我是何甲，需要记下对于生活学习的思考
+我是何甲，需要记下对于生活和学习的思考。
 
 
-
-### 关注
-
+###关注点
 
 - 机器学习
 
 - 深度学习
 
-- Python
-
 - 有趣的...
 
-  ​
+
+### 在哪里
+
+- ​南京大学计算机系，硕士研究生在读
 
 
-### 在哪
-
-​	南京大学计算机系，硕士研究生在读
-
-
-
-### 联系
-
-- [微博@年轻小伙紫](http://weibo.com/2274571252)
+### 联系我
 
 - 邮箱：nicehjia@qq.com
+- GitHub: nicegdhj
 
 
 
