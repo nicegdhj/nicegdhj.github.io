@@ -1,18 +1,17 @@
 ---
 layout: page
 title: "Tags"
-description: "你找到了文章查询方法！"  
+description: "快速查询我的文章"  
 header-img: "img/post-bg-re-vs-ng2.jpg"  
 ---
 
-##本页使用方法
+### 使用
 
-1. 在下面选一个你喜欢的词
+1. 选取相关的主题
 2. 点击它
-3. 文章会「唰」地一声跳到页面顶端
-4. 马上试试？
+3. 相关的文章会「唰」跳到页面顶端
 
-##基因列表
+### 标签
 
 
 <div id='tag_cloud'>

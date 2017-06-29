@@ -2,7 +2,7 @@
 layout: page
 title: "About"
 description: "Hey, this is Jia."
-header-img: "img/post-bg-firework.jpg"
+header-img: "img/post-bg-universe.jpg"
 ---
 
 <center>
@@ -16,7 +16,7 @@ header-img: "img/post-bg-firework.jpg"
 我是何甲，需要记下对于生活和学习的思考。
 
 
-###关注点
+### 关注点
 
 - 机器学习
 
@@ -32,8 +32,8 @@ header-img: "img/post-bg-firework.jpg"
 
 ### 联系我
 
-- 邮箱：nicehjia@qq.com
-- GitHub: nicegdhj
+- nicehjia@qq.com
+- [GitHub](https://github.com/nicegdhj)
 
 
 
