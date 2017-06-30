@@ -2,7 +2,7 @@
 layout: page
 title: "About"
 description: "Hey, this is Jia."
-header-img: "img/post-bg-universe.jpg"
+header-img: "img/post-bg-03.jpg"
 ---
 
 <center>

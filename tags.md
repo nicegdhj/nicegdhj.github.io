@@ -2,7 +2,7 @@
 layout: page
 title: "Tags"
 description: "快速查询我的文章"  
-header-img: "img/post-bg-re-vs-ng2.jpg"  
+header-img: "img/post-bg-alitrip.jpg"  
 ---
 
 ### 使用

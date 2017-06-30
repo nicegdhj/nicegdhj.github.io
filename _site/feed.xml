@@ -5,22 +5,24 @@
     <description>进一步有进一步的欢喜</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 29 Jun 2017 15:45:39 +0800</pubDate>
-    <lastBuildDate>Thu, 29 Jun 2017 15:45:39 +0800</lastBuildDate>
+    <pubDate>Fri, 30 Jun 2017 16:29:02 +0800</pubDate>
+    <lastBuildDate>Fri, 30 Jun 2017 16:29:02 +0800</lastBuildDate>
     <generator>Jekyll v3.4.1</generator>
     
       <item>
         <title>Hello World!</title>
-        <description>&lt;p&gt;从学期始到学期末，各种事情不消停，终于终于终于…搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog?&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;从学期始到学期末，各种事情不消停，终于终于终于…搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog?&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;1初心&quot;&gt;1.初心&lt;/h2&gt;
 &lt;p&gt;为什么搭博客?当然是因为&lt;strong&gt;酷炫&lt;/strong&gt;啊,没毛病!&lt;/p&gt;
 
 &lt;h4 id=&quot;归档&quot;&gt;归档&lt;/h4&gt;
-&lt;p&gt;代码要写好注释，文件要写好ReadMe，每段时间的工作就是要写好博客啦！归档自己每段时间的工作内容才是用博客的正事啊。研一马上过去，看着浏览器收藏夹里密密麻麻的地址，学到的东西还是很多的，有时候感觉到一些东西乱七八糟的堆放在一块，找啊找不到，我要写博客用来梳理一下。&lt;/p&gt;
+&lt;p&gt;代码要写好注释，文件要写好ReadMe，每段时间的工作就是要写好博客啦！归档自己每段时间的工作内容才是用博客的正事啊。研一马上过去，看着浏览器收藏夹里密密麻麻的地址，学到的东西还是很多的，有时候感觉到一些东西乱七八糟的堆放在一块，找啊找不到，所以要写博客用来梳理一下。&lt;/p&gt;
 
 &lt;h4 id=&quot;连续&quot;&gt;连续&lt;/h4&gt;
-&lt;p&gt;目前我在OS X，Win，Ubuntu，3个系统中切来切去，虽说我也没什么代码量但是它们还是不可避免的分布在各个地方，我是想用 博客+github 的方式对这些东西有一个连续的，集中的管理。这让我突然想起了，QQ空间，人人，微博，朋友圈，人不同时段的成长的记录被分割在各个时段风靡的社交媒体上，应该是不能够有父辈们的桥段“一个布满了灰层的日记本”。哎，这么一说，以后有个自留地能写写长文还是挺好的。&lt;/p&gt;
+&lt;p&gt;目前我在OS X，Win，Ubuntu，3个系统中切来切去，虽说我也没什么代码量但是它们还是不可避免的分布在各个地方，我是想用 &lt;strong&gt;博客+GitHub&lt;/strong&gt; 的方式对这些东西有一个连续的，集中的管理。这让我突然想起了，在QQ空间，人人，微博，朋友圈上，人不同时段的成长的记录被分割在各个时段风靡的社交媒体中，应该是不能够有父辈们的桥段“一个布满了灰层的日记本”。哎，这么一说，以后有个自留地能写写长文还是挺好的。&lt;/p&gt;
 
 &lt;h4 id=&quot;梳理&quot;&gt;梳理&lt;/h4&gt;
 &lt;p&gt;“If you can’t explain it simply, you don’t understand it well enough.”
@@ -35,20 +37,22 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;必备git的一些知识，推荐&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;廖雪峰的Git教程&lt;/a&gt;，之前图方便使用图形化界面Github Desktop，然而被绕晕了，还是敲命令行省事，心酸的微笑…&lt;/p&gt;
+    &lt;p&gt;必备git的一些知识，推荐&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;廖雪峰的Git教程&lt;/a&gt;，之前图方便使用图形化界面Github Desktop，然而被绕晕了，还是敲命令行省事，还是要保持围笑…&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Github 上建立网站的仓库，以及使用 Jekyll 模板。我是借用了&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io&quot;&gt;Hux&lt;/a&gt;和&lt;a href=&quot;https://github.com/cnfeat/cnfeat.github.io&quot;&gt;读立写生&lt;/a&gt;。修改模板还是花了些精力，但是不需要我懂前端，查一下 Jekyll的文档, 多调试一下，就大概知道博客的每一块与哪个目录相对应了。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Markdown语法, 边写边练了&lt;/p&gt;
+    &lt;p&gt;绑定域名，使用原始的域名github.io总觉得很繁琐，而且有些博客指出这种域名似乎不能够被百度爬虫爬到（也就是不能够被百度搜索到）。所以我在阿里云万网上注册了域名，&lt;a href=&quot;https://wanwang.aliyun.com/&quot;&gt;在这&lt;/a&gt;，然后依据&lt;a href=&quot;https://www.zhihu.com/question/31377141&quot;&gt;指导1&lt;/a&gt;和&lt;a href=&quot;http://www.cnblogs.com/olddoublemoon/p/6629398.html&quot;&gt;指导2&lt;/a&gt;进行绑定，可能阿里云各种注册手续有些麻烦…&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;开始写作吧，Markdown语法边写边练&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;3那就开始吧&quot;&gt;3.那就开始吧&lt;/h2&gt;
-
 &lt;p&gt;订个小目标, 一个月起码写一篇吧, 关于技术学习也好, 关于生活感悟也好&lt;br /&gt;
-慢慢积累, 野蛮生长&lt;br /&gt;
+点滴积累, 野蛮生长&lt;br /&gt;
 那就开始吧!&lt;/p&gt;
 
 </description>

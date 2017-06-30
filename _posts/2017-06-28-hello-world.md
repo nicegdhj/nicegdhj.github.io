@@ -4,14 +4,13 @@ title: Hello World!
 date: 2017-06-28
 categories: blog
 tags: [杂谈]
-description: 从学期始到学期末,各种事情不消停,终于终于终于...搞出来了. 所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog? 
+description: hello world！
 ---
-从学期始到学期末，各种事情不消停，终于终于终于...搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog? 
+>从学期始到学期末，各种事情不消停，终于终于终于...搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog? 
 
 
 ## 1.初心
 为什么搭博客?当然是因为**酷炫**啊,没毛病! 
-
 
 #### 归档
 代码要写好注释，文件要写好ReadMe，每段时间的工作就是要写好博客啦！归档自己每段时间的工作内容才是用博客的正事啊。研一马上过去，看着浏览器收藏夹里密密麻麻的地址，学到的东西还是很多的，有时候感觉到一些东西乱七八糟的堆放在一块，找啊找不到，所以要写博客用来梳理一下。
@@ -36,12 +35,11 @@ description: 从学期始到学期末,各种事情不消停,终于终于终于..
 
 * Github 上建立网站的仓库，以及使用 Jekyll 模板。我是借用了[Hux](https://github.com/Huxpro/huxpro.github.io)和[读立写生](https://github.com/cnfeat/cnfeat.github.io)。修改模板还是花了些精力，但是不需要我懂前端，查一下 Jekyll的文档, 多调试一下，就大概知道博客的每一块与哪个目录相对应了。
 
-* 绑定域名，使用原始的域名github.io总觉得很繁琐，而且有些博客指出这种域名似乎不能够被百度爬虫爬到（也就是不能够被百度搜索到）。所以我在阿里云万网上注册了域名，[在这](https://wanwang.aliyun.com/)，然后依据[指导1](https://www.zhihu.com/question/31377141)和[指导2](https://help.aliyun.com/knowledge_detail/39788.html)进行绑定，可能阿里云各种注册手续有些麻烦...
+* 绑定域名，使用原始的域名github.io总觉得很繁琐，而且有些博客指出这种域名似乎不能够被百度爬虫爬到（也就是不能够被百度搜索到）。所以我在阿里云万网上注册了域名，[在这](https://wanwang.aliyun.com/)，然后依据[指导1](https://www.zhihu.com/question/31377141)和[指导2](http://www.cnblogs.com/olddoublemoon/p/6629398.html)进行绑定，可能阿里云各种注册手续有些麻烦...
 
 * 开始写作吧，Markdown语法边写边练  
 
 ## 3.那就开始吧
-
 订个小目标, 一个月起码写一篇吧, 关于技术学习也好, 关于生活感悟也好  
 点滴积累, 野蛮生长  
 那就开始吧!
