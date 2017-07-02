@@ -3,7 +3,7 @@ layout: page
 description: "野蛮生长"
 ---
 
-% for post in paginator.posts %}
+{% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">            
@@ -39,4 +39,3 @@ description: "野蛮生长"
     {% endif %}
 </ul>
 {% endif %}
-
