@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TF-Slim指南 之一
+title: TF-Slim指南(一): 快速上手CNN进行图片分类
 date: 2017-07-01
 categories: blog
 tags: [深度学习]
-description: TF-Slim指南 之一
+description: TF-Slim指南之一
 ---
 > 使用Tensorflow中的TF-Slim库快速搭建神经网络开展自己的图像识别任务
 

@@ -5,12 +5,12 @@
     <description>进一步有进一步的欢喜</description>
     <link>https://nicehjia.me/</link>
     <atom:link href="https://nicehjia.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 02 Jul 2017 15:37:44 +0800</pubDate>
-    <lastBuildDate>Sun, 02 Jul 2017 15:37:44 +0800</lastBuildDate>
+    <pubDate>Sun, 02 Jul 2017 17:20:06 +0800</pubDate>
+    <lastBuildDate>Sun, 02 Jul 2017 17:20:06 +0800</lastBuildDate>
     <generator>Jekyll v2.5.0</generator>
     
       <item>
-        <title>hello jiajia</title>
+        <title>Tensorflow Use Tf Slim</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;使用Tensorflow中的TF-Slim库快速搭建神经网络开展自己的图像识别任务&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -59,13 +59,9 @@
 
 </description>
         <pubDate>Sat, 01 Jul 2017 00:00:00 +0800</pubDate>
-        <link>https://nicehjia.me/blog/2017/07/01/tensorflow-use-tf-slim/</link>
-        <guid isPermaLink="true">https://nicehjia.me/blog/2017/07/01/tensorflow-use-tf-slim/</guid>
+        <link>https://nicehjia.me/2017/07/01/tensorflow-use-tf-slim/</link>
+        <guid isPermaLink="true">https://nicehjia.me/2017/07/01/tensorflow-use-tf-slim/</guid>
         
-        <category>深度学习</category>
-        
-        
-        <category>blog</category>
         
       </item>
     

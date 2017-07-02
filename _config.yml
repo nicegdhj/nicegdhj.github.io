@@ -35,6 +35,14 @@ exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone: Asia/Shanghai
 
+# Analytics settings
+# Baidu Analytics
+ba_track_id: d746177aed4155e5d4a6302307cb7aa8
+# Google Analytics
+# ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+ga_domain: nicehjia.me
+
+
 # Defaults for posts
 defaults:
   -
