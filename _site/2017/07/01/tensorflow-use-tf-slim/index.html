@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="进一步有进一步的欢喜">
 
-    <title>Hello World! - Nicehjia Blog</title>
+    <title>Tensorflow Use Tf Slim - Nicehjia Blog</title>
 
-    <link rel="canonical" href="https://nicehjia.me/blog/2017/06/28/hello-world/">
+    <link rel="canonical" href="https://nicehjia.me/2017/07/01/tensorflow-use-tf-slim/">
 
     <!-- Icons -->
   <link rel="shortcut icon" href="img/favicon.ico">
@@ -99,12 +99,10 @@
                 <div class="post-heading">
                     <div class="Tags">
                         
-                        <a class="tag" href="/tags/#杂谈" title="杂谈">杂谈</a>
-                        
                     </div>
-                    <h1>Hello World!</h1>
+                    <h1>Tensorflow Use Tf Slim</h1>
                     
-                    <span class="meta">Posted on 17-28-06</span>
+                    <span class="meta">Posted on 17-01-07</span>
                 </div>
             </div>
         </div>
@@ -121,48 +119,50 @@
             <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 post-container">
 
                 <blockquote>
-  <p>从学期始到学期末，各种事情不消停，终于终于终于…搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog?</p>
+  <p>使用Tensorflow中的TF-Slim库快速搭建神经网络开展自己的图像识别任务</p>
 </blockquote>
 
-<h2 id="section">1.初心</h2>
-<p>为什么搭博客?当然是因为<strong>酷炫</strong>啊,没毛病!</p>
+<h2 id="tf-slim">1.TF-Slim是什么</h2>
+<p>卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了…刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!</p>
 
-<h4 id="section-1">归档</h4>
-<p>代码要写好注释，文件要写好ReadMe，每段时间的工作就是要写好博客啦！归档自己每段时间的工作内容才是用博客的正事啊。研一马上过去，看着浏览器收藏夹里密密麻麻的地址，学到的东西还是很多的，有时候感觉到一些东西乱七八糟的堆放在一块，找啊找不到，所以要写博客用来梳理一下。</p>
+<p>TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API, 	一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.</p>
 
-<h4 id="section-2">连续</h4>
-<p>目前我在OS X，Win，Ubuntu，3个系统中切来切去，虽说我也没什么代码量但是它们还是不可避免的分布在各个地方，我是想用 <strong>博客+GitHub</strong> 的方式对这些东西有一个连续的，集中的管理。这让我突然想起了，在QQ空间，人人，微博，朋友圈上，人不同时段的成长的记录被分割在各个时段风靡的社交媒体中，应该是不能够有父辈们的桥段“一个布满了灰层的日记本”。哎，这么一说，以后有个自留地能写写长文还是挺好的。</p>
-
-<h4 id="section-3">梳理</h4>
-<p>“If you can’t explain it simply, you don’t understand it well enough.”
-写的过程就是再理解的过程，通过写，又可以重新去理解学过的东西，思考心中闪过的想法。</p>
-
-<h4 id="section-4">展示</h4>
-<p>当然是希望我的博客不只是技术的博客，还能有写一些自己对于生活过程中的一些随想，还有整个博客的风格能让我随心所欲的修改啊。这是个人风格的展示,也当作是一种练习吧。</p>
-
-<h2 id="section-5">2.搭建</h2>
-<p>搜一搜 github pages 搭建博客的例子就很多。<a href="http://www.ezlippi.com/blog/2015/03/github-pages-blog.html">这个教程</a>写的清晰一些。
- 大体上的步骤:</p>
+<p><strong>使用过程主要还是要参见</strong><a href="https://github.com/tensorflow/models/tree/master/slim#Data">官方文档1</a>和<a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/slim">官方文档2</a>, 包含了:</p>
 
 <ul>
-  <li>
-    <p>必备git的一些知识，推荐<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">廖雪峰的Git教程</a>，之前图方便使用图形化界面Github Desktop，然而被绕晕了，还是敲命令行省事，还是要保持围笑…</p>
-  </li>
-  <li>
-    <p>Github 上建立网站的仓库，以及使用 Jekyll 模板。我是借用了<a href="https://github.com/Huxpro/huxpro.github.io">Hux</a>和<a href="https://github.com/cnfeat/cnfeat.github.io">读立写生</a>。修改模板还是花了些精力，但是不需要我懂前端，查一下 Jekyll的文档, 多调试一下，就大概知道博客的每一块与哪个目录相对应了。</p>
-  </li>
-  <li>
-    <p>绑定域名，使用原始的域名github.io总觉得很繁琐，而且有些博客指出这种域名似乎不能够被百度爬虫爬到（也就是不能够被百度搜索到）。所以我在阿里云万网上注册了域名，<a href="https://wanwang.aliyun.com/">在这</a>，然后依据<a href="https://www.zhihu.com/question/31377141">指导1</a>和<a href="http://www.cnblogs.com/olddoublemoon/p/6629398.html">指导2</a>进行绑定，可能阿里云各种注册手续有些麻烦…</p>
-  </li>
-  <li>
-    <p>开始写作吧，Markdown语法边写边练</p>
-  </li>
+  <li>Conv2d(卷积), Conv2dTranspose (反卷积Deconv)等CNN常见的操作的TF-Slim实现方法</li>
+  <li>运行demo,数据准备(转化为TFrecods格式,后面会详细提到)方法</li>
+  <li>下载checkpoints方法</li>
+  <li>重新训练, train scratch方法</li>
+  <li>加载checkpoints, finetuning方法</li>
+  <li>验证已训练模型方法</li>
 </ul>
 
-<h2 id="section-6">3.那就开始吧</h2>
-<p>订个小目标, 一个月起码写一篇吧, 关于技术学习也好, 关于生活感悟也好<br />
-点滴积累, 野蛮生长<br />
-那就开始吧!</p>
+<p>基本上包括了一次图片识别任务所有步骤, 然而官方所提供的步骤只能够用于它指定数据集的图片识别任务(如cifar-10, imageNet),我需要利用这个这个框架实现在个人图片数据集上的识别任务.接下来让我们进入代码进行修改.</p>
+
+<p><strong>ps:</strong> TF-slim在 <a href="https://github.com/tensorflow/models/tree/master/slim#Data">github上</a>显示在model/slim下, 而上级目录model中包含了很多谷歌用Tensorflow实现的一些领域深度学习的经典demo, 最近好像又开源了图像detection的R-CNN.</p>
+
+<p>## 2.操作 ##
+ 我的需求是使用InceptionV3结构对胸部X光片进行尘肺病分类(0,1,2,3期),我的医学图片只有几千张对深度学习显然太少,选择finetune的方法.
+ ### 2.1 文件目录 ###
+ <a href="https://github.com/tensorflow/models/tree/master/slim#Data">在这里</a>是TF-Slim在github上的主页面. clone上级目录model, 选取其中的slim/到自己的文件夹即可. 因为TF-Slim(<strong>以下简称slim</strong>)在不断的更新, 参考教程还是要依据官方的ReadMe为准. 在这里我主要是依据我当时使用的版本(Tensorflow 1.10, 大概2017年4月左右发布的版本)进行记录,里面有一些其余的文件是我为了是实现额外的一些功能编写的,不影响原本的主体功能.下图是我的文件结构</p>
+
+<p>&lt;div align=center&gt;
+ <img src="/img/my_article_images/20170701-tensorflow-use-tf-slim/01.png" alt="" />
+&lt;/div&gt;</p>
+
+<ul>
+  <li>checkpoints:存放官方文档** pre-trained models **部分提供的的checkpoints(tensorflow里面他们称作warm-starting, 就是caffe的finetune),我需要下载InceptionV3在ImageNet上的checkpoints.</li>
+  <li>datasets: slim 运行示例demo时,下载公共数据集(包括了minist, cifar-10, flower, imagenet)及将它们转化为tf-record格式的py脚本</li>
+  <li>deployment:不是太清楚,似乎与tensorflow分布式部署相关</li>
+  <li>nets: 用slim写的经典CNN网络, 包括alexnet,cifarnet,inception, ResNet等</li>
+  <li>preprocessing: 图片放入CNN训练前的预处理过程, 验证时放入CNN前的预处理过程, <a href="">这一块我详细看了一下</a></li>
+  <li>scrpits: 包含了train from finetuning 以及train from scratch的详细实例</li>
+</ul>
+
+<p>我主要是参考scrpits目录里的脚本,官方文档以及查看对应的代码进行理解的.在这里推荐pycharm这个Python开发的IDE, 遇到不明白的代码鼠标选中之后按F3会直接跳转到源码部分,利于理解.为了方便每次训练,仿照scrpits中sh脚本,我把我需要的训练方式写在了**  my_scrpits.txt **</p>
+
+<h3 id="section">2.2 数据准备</h3>
 
 
 
@@ -170,10 +170,10 @@
 
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2017/07/01/tensorflow-use-tf-slim/" data-toggle="tooltip" data-placement="top" title="Tensorflow Use Tf Slim">Next Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/blog/2017/06/28/hello-world/" data-toggle="tooltip" data-placement="top" title="Hello World!">&larr; Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
