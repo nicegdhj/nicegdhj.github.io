@@ -26,7 +26,7 @@ zhihu_username:
 # Build settings  
 # use Github Flavored Markdown !important  
 # document: http://jekyllrb.com/docs/configuration/#kramdown  
-markdown: kramdown
+markdown: kramdown  
 highlighter: rouge
 permalink: pretty
 paginate: 10
