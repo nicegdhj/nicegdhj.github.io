@@ -28,7 +28,7 @@ zhihu_username:
 # document: http://jekyllrb.com/docs/configuration/#kramdown  
 #   ( maruku | rdiscount | kramdown | redcarpet )
 markdown: kramdown
-highlighter:  kramdown
+highlighter:  rouge
 permalink: pretty
 paginate: 12
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
