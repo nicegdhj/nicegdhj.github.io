@@ -27,8 +27,8 @@ zhihu_username:
 # use Github Flavored Markdown !important  
 # document: http://jekyllrb.com/docs/configuration/#kramdown  
 #   ( maruku | rdiscount | kramdown | redcarpet )
-markdown: redcarpet 
-highlighter: redcarpet 
+markdown: kramdown
+highlighter:  kramdown
 permalink: pretty
 paginate: 12
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]

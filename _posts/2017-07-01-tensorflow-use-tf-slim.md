@@ -7,11 +7,13 @@ categories: blog
 tags: [深度学习]
 description: TF-Slim指南之一
 ---    
-<font color=OrangeRed size=3>
+
+<span style='color:OrangeRed '>
 使用TensorFlow中的TF-Slim库快速搭建神经网络开展自己的图像识别任务;  
 使用 InceptionV3 网络对胸部X光片进行尘肺病分类( 0,1,2,3期 );  
 医学图片只有2000张, 使用深度学习显然太少, 还要使用finetune的方法.  
-</font>  
+</span>
+
 卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了...刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!  
 本次实验[代码存放地址](https://github.com/nicegdhj/GoDeepLearning)
 
@@ -132,7 +134,8 @@ FLAGS = flags.FLAGS
 * 第四个参数：随机种子，用于将整个数据集随机打乱，关系不大
 * 第五个参数：tfrecord 文件生成后输出路径，其中最后的 mydata 是生成的 tfrecord 的文件名，请不要更改，因为mydata这个文件名被 我写入了xxx/tf_slim/datasets/ my_dataset.py
 之后执行create_tfrecord.py生成tfrecord格式数据, 会同时包含一个label.txt文件,请保留,结果形如:  
-<div align=center>![](/img/my_article_images/20170701-tensorflow-use-tf-slim/04.png)</div>
+
+![](/img/my_article_images/20170701-tensorflow-use-tf-slim/04.png){: .center-image}
 
 ### 3.2 修改my_dataset.py 文件
 在第2部分提到过,slim在datasets 目录下只写了4个公开数据集的处理方式(包括了tf-record格式的decode, batchsize批读取等), 所以要处理我们的尘肺病图片, 还需要编写这部分的操作  
@@ -196,7 +199,7 @@ python train_image_classifier.py \
 所有网络参数意义及其使用方法, 详见[官方文档1](https://github.com/tensorflow/models/tree/master/slim#Data)
 训练完结之后验证模型模型的步骤, 也写在了xxx/tf_slim/my_scripts.txt上, 主要参数与训练时意义一样
 如图,inceptionV3模型训练过程被顺利启动  
-<div align=center>![](/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png)</div>   
+![](/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png){: .center-image}   
 
 
 ### 5.结果

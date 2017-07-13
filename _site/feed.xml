@@ -5,43 +5,72 @@
     <description>进一步有进一步的欢喜</description>
     <link>https://nicehjia.me/</link>
     <atom:link href="https://nicehjia.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 07 Jul 2017 14:35:16 +0800</pubDate>
-    <lastBuildDate>Fri, 07 Jul 2017 14:35:16 +0800</lastBuildDate>
+    <pubDate>Thu, 13 Jul 2017 17:07:31 +0800</pubDate>
+    <lastBuildDate>Thu, 13 Jul 2017 17:07:31 +0800</lastBuildDate>
     <generator>Jekyll v2.5.0</generator>
     
       <item>
         <title>markdown踩坑</title>
-        <description>&lt;p&gt;我以为markdown语法就是那么简单, 我错了... 在本地编辑的好好的文章,上传到github之后, 格式就各种不能显示, 心累 ...记录一下各种坑&lt;/p&gt;
+        <description>&lt;p&gt;我以为markdown语法就是那么简单, 我错了… 在本地编辑的好好的文章,上传到github之后, 格式就各种不能显示, 心累 …** 一定要用Google直接把遇到的问题换成英语描述直接搜索**&lt;/p&gt;
 
-&lt;p&gt;查过资料 markdown的文件有好几种解析器( maruku | rdiscount | kramdown | redcarpet ), github支持的 jekyll 默认用的是kramdown这种解析器, 所以, 有些语法在本地显示的效果非常ok, 一上传显示效果就给给跪 ,难道是因为这个原因? 所以 百度上面搜出的一些markdown语法, 比如图片居中, 字体变色啊 , 不是所有的都适用的...  &lt;/p&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;查过资料 markdown的文件有好几种解析器( maruku&lt;/td&gt;
+      &lt;td&gt;rdiscount&lt;/td&gt;
+      &lt;td&gt;kramdown&lt;/td&gt;
+      &lt;td&gt;redcarpet ), github支持的 jekyll 默认用的是kramdown这种解析器, 所以, 有些语法在本地显示的效果非常ok, 一上传显示效果就给给跪 ,难道是因为这个原因? 所以 百度上面搜出的一些markdown语法, 比如图片居中, 字体变色啊 , 不是所有的都适用的…&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;h2&gt;一些问题&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;一些问题&lt;/h2&gt;
+&lt;p&gt;#### 不能显示文章标题&lt;/p&gt;
 
-&lt;h3&gt;不能显示文章标题&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;---
-layout: post
+&lt;h2 id=&quot;section-1&quot;&gt;```&lt;/h2&gt;
+&lt;p&gt;layout: post
 title: markdown踩坑
 subtitle: 
 date: 2017-07-06
 categories: blog
 tags: [markdown]
 description: 练习使用markdown语法
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;一开始文章标题一直无法显示, 我以为是有汉字的原因, 各种找...&lt;br&gt;
-结果是, 空格, 引号后面记得空格.&lt;br&gt;
-包括标题#/##/###...等 需要空格, 而有很多格式表示又不需要空格,注意区分  &lt;/p&gt;
+—
+```
+一开始文章标题一直无法显示, 我以为是有汉字的原因, 各种找…&lt;br /&gt;
+结果是, 空格, 引号后面记得空格. &lt;br /&gt;
+包括标题#/##/###…等 需要空格, 而有很多格式表示又不需要空格,注意区分&lt;/p&gt;
 
-&lt;h3&gt;修改解析器&lt;/h3&gt;
-
+&lt;h4 id=&quot;section-2&quot;&gt;修改解析器&lt;/h4&gt;
 &lt;p&gt;如前面所说, 图片居中, 代码块无法显示, 公式表示等等 在本地调试时效果都OK ,但是用jekyll 调试的时候,效果就GG
-所以尝试修改解析器, 在 _config.yml&lt;br&gt;
+所以尝试修改解析器, 在 _config.yml&lt;br /&gt;
 &lt;code&gt;
 markdown: redcarpet
 highlighter: redcarpet
 permalink: pretty
 &lt;/code&gt;
-本来默认的是kramdown, 被我改成这个了 redcarpet, ( maruku | rdiscount | kramdown | redcarpet )有四种选择,然后, jekyll serve 本地调试 ,世界....都清净了...&lt;/p&gt;
+本来默认的是kramdown, 被我改成这个了 redcarpet, ( maruku | rdiscount | kramdown | redcarpet )有四种选择,然后, jekyll serve 本地调试 ,世界….都清净了…&lt;/p&gt;
+
+&lt;p&gt;后记
+然而github默认的jekyll只认kramdown,所以只能 继续寻找kramdown下的解决方法&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;图片居中&lt;/h4&gt;
+&lt;p&gt;直接改CSS
+先在xxx/css/syntax.css 最后添加
+~~~
+.center-image{margin: 0 auto; display: block;}
+~~~
+之后对居中图片
+~~~
+&lt;img src=&quot;/my-image&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;
+~~~
+#### 字体颜色修改
+从HTML方法修改, 格式如下
+~~~
+&lt;span style=&quot;color:OrangeRed &quot;&gt;xxx&lt;/span&gt;
+~~~
+&lt;span style=&quot;color:OrangeRed &quot;&gt;橘红色示例&lt;/span&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Fri, 07 Jul 2017 00:00:00 +0800</pubDate>
         <link>https://nicehjia.me/blog/2017/07/07/markdown-test/</link>
@@ -56,12 +85,14 @@ permalink: pretty
     
       <item>
         <title>TF-Slim指南  (二)</title>
-        <description>&lt;div align=center&gt;![](/img/my_article_images/20170706-tfslim-my-project/loss.png)&lt;/div&gt;   
+        <description>&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/loss.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
+可以看见,此次实验的loss 几乎改变很小, 是不是意味着模型几乎没有学习到什么内容? 费解.我个人的理解是,使用finetune(我们的实验修改了两层,InceptionV3/Logits,InceptionV3/AuxLogits ) 相当于是在一个拟合好函数, 一个很小的范围进行边边角角的修改,所以才会出现这种曲线.&lt;br /&gt;
+用尘肺病数据完全重新(scratch方法)训练模型, 因为实验条件限制, 只训练了10000代(就耗时3天, deep的方法就!是!要!吃!硬!件!啊!天! ,泪奔…),得到loss曲线如下图&lt;/p&gt;
 
-&lt;p&gt;可以看见,此次实验的loss 几乎改变很小, 是不是意味着模型几乎没有学习到什么内容? 费解.我个人的理解是,使用finetune(我们的实验修改了两层,InceptionV3/Logits,InceptionV3/AuxLogits ) 相当于是在一个拟合好函数, 一个很小的范围进行边边角角的修改,所以才会出现这种曲线.&lt;br&gt;
-用尘肺病数据完全重新(scratch方法)训练模型, 因为实验条件限制, 只训练了10000代(就耗时3天, deep的方法就!是!要!吃!硬!件!啊!天! ,泪奔...),得到loss曲线如下图&lt;br&gt;
-&lt;div align=center&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/scratch_loss.png&quot; alt=&quot;&quot;&gt;&lt;/div&gt;&lt;br&gt;
-可以看见起始loss很高, 下降也很快很平稳, 虽然只训练了10000代但也印证了一些我上面提到一些的理解. 一度怀疑&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/scratch_loss.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看见起始loss很高, 下降也很快很平稳, 虽然只训练了10000代但也印证了一些我上面提到一些的理解. 一度怀疑&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 06 Jul 2017 00:00:00 +0800</pubDate>
         <link>https://nicehjia.me/blog/2017/07/06/tfslim-my-project/</link>
@@ -76,37 +107,38 @@ permalink: pretty
     
       <item>
         <title>TF-Slim指南  (一)</title>
-        <description>&lt;p&gt;&lt;font color=OrangeRed size=3&gt;
-使用TensorFlow中的TF-Slim库快速搭建神经网络开展自己的图像识别任务;&lt;br&gt;
-使用 InceptionV3 网络对胸部X光片进行尘肺病分类( 0,1,2,3期 );&lt;br&gt;
-医学图片只有2000张, 使用深度学习显然太少, 还要使用finetune的方法.&lt;br&gt;
-&lt;/font&gt;&lt;br&gt;
-卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了...刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!&lt;br&gt;
+        <description>&lt;p&gt;&lt;span style=&quot;color:OrangeRed &quot;&gt;
+使用TensorFlow中的TF-Slim库快速搭建神经网络开展自己的图像识别任务;&lt;br /&gt;
+使用 InceptionV3 网络对胸部X光片进行尘肺病分类( 0,1,2,3期 );&lt;br /&gt;
+医学图片只有2000张, 使用深度学习显然太少, 还要使用finetune的方法.&lt;br /&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了…刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!&lt;br /&gt;
 本次实验&lt;a href=&quot;https://github.com/nicegdhj/GoDeepLearning&quot;&gt;代码存放地址&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2&gt;1.TF-Slim是什么&lt;/h2&gt;
-
-&lt;p&gt;TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API,   一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.&lt;/p&gt;
+&lt;h2 id=&quot;tf-slim&quot;&gt;1.TF-Slim是什么&lt;/h2&gt;
+&lt;p&gt;TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API, 	一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;使用过程主要还是要参见&lt;/strong&gt;&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;官方文档1&lt;/a&gt;和&lt;a href=&quot;https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/slim&quot;&gt;官方文档2&lt;/a&gt;, 包含了:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Conv2d(卷积), Conv2dTranspose (反卷积Deconv)等CNN常见的操作的TF-Slim实现方法&lt;/li&gt;
-&lt;li&gt;运行demo,数据准备(转化为TFrecods格式,后面会详细提到)方法&lt;/li&gt;
-&lt;li&gt;下载checkpoints方法&lt;/li&gt;
-&lt;li&gt;重新训练, train scratch方法&lt;/li&gt;
-&lt;li&gt;加载checkpoints, finetuning方法&lt;/li&gt;
-&lt;li&gt;验证已训练模型方法&lt;/li&gt;
+  &lt;li&gt;Conv2d(卷积), Conv2dTranspose (反卷积Deconv)等CNN常见的操作的TF-Slim实现方法&lt;/li&gt;
+  &lt;li&gt;运行demo,数据准备(转化为TFrecods格式,后面会详细提到)方法&lt;/li&gt;
+  &lt;li&gt;下载checkpoints方法&lt;/li&gt;
+  &lt;li&gt;重新训练, train scratch方法&lt;/li&gt;
+  &lt;li&gt;加载checkpoints, finetuning方法&lt;/li&gt;
+  &lt;li&gt;验证已训练模型方法&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;基本上包括了一次图片识别任务所有步骤, 然而官方所提供的步骤只能够用于它指定数据集的图片识别任务(如cifar-10, imageNet),我需要利用这个这个框架实现在个人图片数据集上的识别任务.接下来让我们进入代码进行修改.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;ps:&lt;/em&gt; TF-slim在 &lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;github上&lt;/a&gt;显示在model/slim下, 而上级目录model中包含了很多谷歌Tensorflow实现的一些领域深度学习的经典demo, 最近好像又开源了图像detection的R-CNN.&lt;/p&gt;
 
-&lt;h2&gt;2.使用&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;2.使用&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;在这里&lt;/a&gt;是TF-Slim在github上的主页面. clone上级目录model, 选取其中的slim/到自己的文件夹即可. 因为TF-Slim(&lt;strong&gt;以下简称slim,  Tensorflow简称TF&lt;/strong&gt;)在不断的更新, 参考教程还是要依据官方的ReadMe为准. 在这里我主要是依据我当时使用的版本(Tensorflow 1.10, 大概2017年4月左右发布的版本)进行记录,里面有一些其余的文件是我为了是实现额外的一些功能编写的,不影响原本的主体功能.下图是我的文件结构:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;在这里&lt;/a&gt;是TF-Slim在github上的主页面. clone上级目录model, 选取其中的slim/到自己的文件夹即可. 因为TF-Slim(&lt;strong&gt;以下简称slim,  Tensorflow简称TF&lt;/strong&gt;)在不断的更新, 参考教程还是要依据官方的ReadMe为准. 在这里我主要是依据我当时使用的版本(Tensorflow 1.10, 大概2017年4月左右发布的版本)进行记录,里面有一些其余的文件是我为了是实现额外的一些功能编写的,不影响原本的主体功能.下图是我的文件结构: &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;.
+&lt;p&gt;&lt;code&gt;
+.
 ├── checkpoints
 ├── datasets
 ├── deployment
@@ -125,43 +157,43 @@ permalink: pretty
 ├── synset.txt
 ├── train_image_classifier.py
 └── utils.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;主要目录:  &lt;/p&gt;
+&lt;/code&gt; &lt;br /&gt;
+主要目录:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;checkpoints: 官方文档 &lt;strong&gt;pre-trained&lt;/strong&gt;部分提供的的checkpoints(tensorflow里面他们称作warm-starting, 就是caffe的finetune),我下载了InceptionV3在ImageNet上的checkpoints存放在这里.&lt;/li&gt;
-&lt;li&gt;datasets: slim 运行示例demo时,下载公共数据集(包括了minist, cifar-10, flower, imagenet)及将它们转化为tfrecord格式的py脚本&lt;/li&gt;
-&lt;li&gt;deployment:不太清楚,似乎与tensorflow分布式部署相关&lt;/li&gt;
-&lt;li&gt;nets: 用slim写的经典CNN网络, 包括alexnet,cifarnet,inception, ResNet等&lt;/li&gt;
-&lt;li&gt;preprocessing: 图片放入CNN训练前的预处理过程, 验证时放入CNN前的预处理过程,&lt;a href=&quot;&quot;&gt;这一块我看了一下&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;scrpits: 包含了train from finetuning 以及train from scratch的详细实例&lt;/li&gt;
+  &lt;li&gt;checkpoints: 官方文档 &lt;strong&gt;pre-trained&lt;/strong&gt;部分提供的的checkpoints(tensorflow里面他们称作warm-starting, 就是caffe的finetune),我下载了InceptionV3在ImageNet上的checkpoints存放在这里.&lt;/li&gt;
+  &lt;li&gt;datasets: slim 运行示例demo时,下载公共数据集(包括了minist, cifar-10, flower, imagenet)及将它们转化为tfrecord格式的py脚本&lt;/li&gt;
+  &lt;li&gt;deployment:不太清楚,似乎与tensorflow分布式部署相关&lt;/li&gt;
+  &lt;li&gt;nets: 用slim写的经典CNN网络, 包括alexnet,cifarnet,inception, ResNet等&lt;/li&gt;
+  &lt;li&gt;preprocessing: 图片放入CNN训练前的预处理过程, 验证时放入CNN前的预处理过程,&lt;a href=&quot;&quot;&gt;这一块我看了一下&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;scrpits: 包含了train from finetuning 以及train from scratch的详细实例&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;我主要是参考scrpits里的脚本,官方文档,查看的代码(包括tensorflow的文档)理解整个训练流程. 在这里推荐pycharm这个Python开发的IDE, 遇到不明白的代码,鼠标选中之后按F3会直接跳转到源码部分查考注释.为了方便每次训练,仿照scrpits中sh脚本,我把我的训练命令写在了 &lt;strong&gt;myscrpits.txt&lt;/strong&gt;里&lt;/p&gt;
 
-&lt;h2&gt;3. 数据准备&lt;/h2&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;3. 数据准备&lt;/h2&gt;
+&lt;p&gt;slim 将图片转化为tf-record格式,再使用QueueRunner方式输入.&lt;br /&gt;
+什么是tf-record格式? TF提供了3种方式输入数据, 以拟合下列式子为例&lt;/p&gt;
 
-&lt;p&gt;slim 将图片转化为tf-record格式,再使用QueueRunner方式输入.&lt;br&gt;
-什么是tf-record格式? TF提供了3种方式输入数据, 以拟合下列式子为例  &lt;/p&gt;
-
-&lt;p&gt;$$ y = x&lt;em&gt;{1}+x&lt;/em&gt;{2}+6 $$&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y = x_{1}+x_{2}+6&lt;/script&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Preloaded data:  在TF中保存常量或不改变的变量,如式子中的6&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;Feeding: 在TF中保存一些变量,程序运行的每一步,让Python代码来供给数据, 用tf.placeholder占位, 如算式中的x1和x2.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;Reading from files: 以pipeline的方式从文件中读取数据,例如假设这里的输入x1,x2非常大, 是成批的图片(多维张量)的时候.&lt;/li&gt;
+  &lt;li&gt;Preloaded data:  在TF中保存常量或不改变的变量,如式子中的6&lt;/li&gt;
+  &lt;li&gt;Feeding: 在TF中保存一些变量,程序运行的每一步,让Python代码来供给数据, 用tf.placeholder占位, 如算式中的x1和x2.&lt;/li&gt;
+  &lt;li&gt;Reading from files: 以pipeline的方式从文件中读取数据,例如假设这里的输入x1,x2非常大, 是成批的图片(多维张量)的时候.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.tensorflow.org/programmers_guide/reading_data#feeding&quot;&gt;参考TF文档&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;对于第三种方式,使用TF训练神经网络, 如果数据集比较小,而且内存足够大,可以选择直接将所有数据读进内存,然后每次取一个batch的数据出来.如果数据较多,则需要每次直接从硬盘中进行读取,后者方式效率比较低,TF为这种情况设计了tfrecord数据格式与quene队列读取模式,加快数据的处理,以下是将图片数据转化为tfrecord的实现方式.&lt;/p&gt;
 
-&lt;h3&gt;3.1转化为tfrecord格式&lt;/h3&gt;
+&lt;h3 id=&quot;tfrecord&quot;&gt;3.1转化为tfrecord格式&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://kwotsin.github.io/tech/2017/01/29/tfrecords.html&quot;&gt;参考博客&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://kwotsin.github.io/tech/2017/01/29/tfrecords.html&quot;&gt;参考博客&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;首先,将我们的图片整理为下图的形式. 以flowers 的数据集为例, 如所有属于 tulips 类jpg格式的图片都放tulips的文件夹内, 并确flowers目录中没有除开 flower_photos 之外的其他文件夹&lt;/p&gt;
 
-&lt;p&gt;首先,将我们的图片整理为下图的形式. 以flowers 的数据集为例, 如所有属于 tulips 类jpg格式的图片都放tulips的文件夹内, 并确flowers目录中没有除开 flower_photos 之外的其他文件夹  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;flowers\
+&lt;p&gt;&lt;code&gt;
+flowers\
     flower_photos\
         tulips\
             ....jpg
@@ -175,103 +207,102 @@ permalink: pretty
             ....jpg
         daisy\
             ....jpg
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;下载我的github上的项目后, 需要修改xxx/data&lt;em&gt;preproces/create&lt;/em&gt;tfrecords目录中的 create_tfrecord.py的一些参数  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;flags = tf.app.flags
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;下载我的github上的项目后, 需要修改xxx/data_preproces/create_tfrecords目录中的 create_tfrecord.py的一些参数&lt;/p&gt;
+
+&lt;p&gt;```python&lt;br /&gt;
+flags = tf.app.flags
 #State your dataset directory
-flags.DEFINE_string(&amp;#39;dataset_dir&amp;#39;, &amp;#39;/home/data/classifyByLabel_data&amp;#39;, &amp;#39;String: Your dataset directory&amp;#39;)
+flags.DEFINE_string(‘dataset_dir’, ‘/home/data/classifyByLabel_data’, ‘String: Your dataset directory’)&lt;/p&gt;
 
-# The number of images in the validation set. You would have to know the total number of examples in advance. This is essentially your evaluation dataset.
-flags.DEFINE_float(&amp;#39;validation_size&amp;#39;, 0, &amp;#39;Float: The proportion of examples in the dataset to be used for validation&amp;#39;)
+&lt;h1 id=&quot;the-number-of-images-in-the-validation-set-you-would-have-to-know-the-total-number-of-examples-in-advance-this-is-essentially-your-evaluation-dataset&quot;&gt;The number of images in the validation set. You would have to know the total number of examples in advance. This is essentially your evaluation dataset.&lt;/h1&gt;
+&lt;p&gt;flags.DEFINE_float(‘validation_size’, 0, ‘Float: The proportion of examples in the dataset to be used for validation’)&lt;/p&gt;
 
-# The number of shards to split the dataset into
-flags.DEFINE_integer(&amp;#39;num_shards&amp;#39;, 4, &amp;#39;Int: Number of shards to split the TFRecord files&amp;#39;)
+&lt;h1 id=&quot;the-number-of-shards-to-split-the-dataset-into&quot;&gt;The number of shards to split the dataset into&lt;/h1&gt;
+&lt;p&gt;flags.DEFINE_integer(‘num_shards’, 4, ‘Int: Number of shards to split the TFRecord files’)&lt;/p&gt;
 
-# Seed for repeatability.
-flags.DEFINE_integer(&amp;#39;random_seed&amp;#39;, 0, &amp;#39;Int: Random seed to use for repeatability.&amp;#39;)
+&lt;h1 id=&quot;seed-for-repeatability&quot;&gt;Seed for repeatability.&lt;/h1&gt;
+&lt;p&gt;flags.DEFINE_integer(‘random_seed’, 0, ‘Int: Random seed to use for repeatability.’)&lt;/p&gt;
 
-#Output filename for the naming the TFRecord file
-flags.DEFINE_string(&amp;#39;tfrecord_filename&amp;#39;, &amp;#39;/home/data/my_tf_data/mydata&amp;#39;, &amp;#39;String: The output filename to name your TFRecord file&amp;#39;)
+&lt;h1 id=&quot;output-filename-for-the-naming-the-tfrecord-file&quot;&gt;Output filename for the naming the TFRecord file&lt;/h1&gt;
+&lt;p&gt;flags.DEFINE_string(‘tfrecord_filename’, ‘/home/data/my_tf_data/mydata’, ‘String: The output filename to name your TFRecord file’)&lt;/p&gt;
 
-FLAGS = flags.FLAGS
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;第一个参数： 图片数据集所在路径&lt;/li&gt;
-&lt;li&gt;第二个参数：验证集数据占整个数据集比例，如 0.2，则整个数据集有 20%的图片会被于制作验证集&lt;/li&gt;
-&lt;li&gt;第三个参数：将 tfrecord 格式生成几部分，关系不大&lt;/li&gt;
-&lt;li&gt;第四个参数：随机种子，用于将整个数据集随机打乱，关系不大&lt;/li&gt;
-&lt;li&gt;第五个参数：tfrecord 文件生成后输出路径，其中最后的 mydata 是生成的 tfrecord 的文件名，请不要更改，因为mydata这个文件名被 我写入了xxx/tf&lt;em&gt;slim/datasets/ my&lt;/em&gt;dataset.py
-之后执行create_tfrecord.py生成tfrecord格式数据, 会同时包含一个label.txt文件,请保留,结果形如:&lt;br&gt;
-&lt;div align=center&gt;&lt;img src=&quot;/img/my_article_images/20170701-tensorflow-use-tf-slim/04.png&quot; alt=&quot;&quot;&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;FLAGS = flags.FLAGS
+```&lt;br /&gt;
+* 第一个参数： 图片数据集所在路径
+* 第二个参数：验证集数据占整个数据集比例，如 0.2，则整个数据集有 20%的图片会被于制作验证集
+* 第三个参数：将 tfrecord 格式生成几部分，关系不大
+* 第四个参数：随机种子，用于将整个数据集随机打乱，关系不大
+* 第五个参数：tfrecord 文件生成后输出路径，其中最后的 mydata 是生成的 tfrecord 的文件名，请不要更改，因为mydata这个文件名被 我写入了xxx/tf_slim/datasets/ my_dataset.py
+之后执行create_tfrecord.py生成tfrecord格式数据, 会同时包含一个label.txt文件,请保留,结果形如:&lt;/p&gt;
 
-&lt;h3&gt;3.2 修改my_dataset.py 文件&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170701-tensorflow-use-tf-slim/04.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;在第2部分提到过,slim在datasets 目录下只写了4个公开数据集的处理方式(包括了tf-record格式的decode, batchsize批读取等), 所以要处理我们的尘肺病图片, 还需要编写这部分的操作&lt;br&gt;
-我按照了xxx/tf-slim/scrpits/finetune&lt;em&gt;inception&lt;/em&gt;v3&lt;em&gt;on&lt;/em&gt;flowers.sh 的脚本,找到了finetune的命令,按照datasets/flower.py 文件修改得到datasets/my_dataset.py ,使用时,需要相应参数  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-Python&quot; data-lang=&quot;Python&quot;&gt;_FILE_PATTERN = &amp;#39;mydata_%s_*.tfrecord&amp;#39;
+&lt;h3 id=&quot;mydatasetpy-&quot;&gt;3.2 修改my_dataset.py 文件&lt;/h3&gt;
+&lt;p&gt;在第2部分提到过,slim在datasets 目录下只写了4个公开数据集的处理方式(包括了tf-record格式的decode, batchsize批读取等), 所以要处理我们的尘肺病图片, 还需要编写这部分的操作&lt;br /&gt;
+我按照了xxx/tf-slim/scrpits/finetune_inception_v3_on_flowers.sh 的脚本,找到了finetune的命令,按照datasets/flower.py 文件修改得到datasets/my_dataset.py ,使用时,需要相应参数&lt;/p&gt;
 
-SPLITS_TO_SIZES = {&amp;#39;train_data&amp;#39;: 800, &amp;#39;validation&amp;#39;: 200}
+&lt;p&gt;```Python
+&lt;em&gt;FILE_PATTERN = ‘mydata&lt;/em&gt;%s_*.tfrecord’&lt;/p&gt;
 
-_NUM_CLASSES = 4
+&lt;p&gt;SPLITS_TO_SIZES = {‘train_data’: 800, ‘validation’: 200}&lt;/p&gt;
 
-_ITEMS_TO_DESCRIPTIONS = {
-    &amp;#39;image&amp;#39;: &amp;#39;my image &amp;#39;,
-    &amp;#39;label&amp;#39;: &amp;#39;between 0 and 3&amp;#39;,
+&lt;p&gt;_NUM_CLASSES = 4&lt;/p&gt;
+
+&lt;p&gt;_ITEMS_TO_DESCRIPTIONS = {
+    ‘image’: ‘my image ‘,
+    ‘label’: ‘between 0 and 3’,
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数&lt;/li&gt;
-&lt;li&gt;第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量&lt;/li&gt;
-&lt;li&gt;第三个参数：分类数量&lt;/li&gt;
-&lt;li&gt;第四个参数：对于数据集的描述，不重要&lt;/li&gt;
-&lt;/ul&gt;
+```
+* 第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数
+* 第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量
+* 第三个参数：分类数量
+* 第四个参数：对于数据集的描述，不重要&lt;/p&gt;
 
-&lt;h3&gt;4.模型训练&lt;/h3&gt;
-
+&lt;h3 id=&quot;section-2&quot;&gt;4.模型训练&lt;/h3&gt;
 &lt;p&gt;单机fine-tune，整理后的数据集规模也才2000张图片，对于深度学习模型而言无疑是非常小的数据集，所以我们有必要使用fine-tune迁移学习的思路，以本次使用网络InceptionV3为例，InceptionV3,使用在通用数据集ImageNet上训练好的模型，然后针对最后几层使用我们的数据集单独训练，这样训练出来的模型才会有一个比较好分类效果。
 首先，我们需要预先下载训练好的模型, 在&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;https://github.com/tensorflow/models/tree/master/slim#Data&lt;/a&gt; 列表中选择InceptionV3的checkpoint项进行下载
-然后终端在xxx/tf&lt;em&gt;slim/目录下执行以下训练用的命令，包括验证命令,我都写在了xxx/tf&lt;/em&gt;slim/my_scripts.txt上, 例如  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;#inceptionV3
+然后终端在xxx/tf_slim/目录下执行以下训练用的命令，包括验证命令,我都写在了xxx/tf_slim/my_scripts.txt上, 例如&lt;/p&gt;
+
+&lt;p&gt;```python
+#inceptionV3
 TRAIN_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/0_1savemodel
 DATASET_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/tf_data/0_1
 DATASET_NAME=my_dataset
-PRETRAINED_CHECKPOINT_DIR=/home/nicehija/PycharmProjects/beijingproject_tensorflow/slim/tmp
+PRETRAINED_CHECKPOINT_DIR=/home/nicehija/PycharmProjects/beijingproject_tensorflow/slim/tmp&lt;/p&gt;
 
-python train_image_classifier.py \
-  --train_dir=${TRAIN_DIR} \
-  --dataset_name=${DATASET_NAME} \
-  --dataset_split_name=train \
-  --dataset_dir=${DATASET_DIR} \
-  --model_name=inception_v3 \
-  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
-  --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
-  --trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
-  --max_number_of_steps=6000 \
-  --batch_size=16 \
-  --learning_rate=0.01 \
-  --learning_rate_decay_type=fixed \
-  --save_interval_secs=100 \
-  --save_summaries_secs=100 \
-  --log_every_n_steps=100 \
-  --optimizer=rmsprop \
-  --weight_decay=0.00004
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;PRETRAINED&lt;em&gt;CHECKPOINT&lt;/em&gt;DIR：上一步checkpoints存放路径&lt;/li&gt;
-&lt;li&gt;TRAIN_DIR：训练出来的模型保存位置的路径&lt;/li&gt;
-&lt;li&gt;DATASET_DIR：训练数据所在路径&lt;/li&gt;
-&lt;li&gt;DATASET&lt;em&gt;NAME：对应于 制作tfrecord部分的(2)点提及的第5个参数，模型调用xxx/my&lt;/em&gt;tf&lt;em&gt;slim/datasets/my&lt;/em&gt;dataset.py文件，指定了的detfrecord的方法以及翻转，crop等数据预处理方法&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;python train_image_classifier.py \
+  –train_dir=${TRAIN_DIR} \
+  –dataset_name=${DATASET_NAME} \
+  –dataset_split_name=train \
+  –dataset_dir=${DATASET_DIR} \
+  –model_name=inception_v3 \
+  –checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
+  –checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  –trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  –max_number_of_steps=6000 \
+  –batch_size=16 \
+  –learning_rate=0.01 \
+  –learning_rate_decay_type=fixed \
+  –save_interval_secs=100 \
+  –save_summaries_secs=100 \
+  –log_every_n_steps=100 \
+  –optimizer=rmsprop \
+  –weight_decay=0.00004
+``` 
+* PRETRAINED_CHECKPOINT_DIR：上一步checkpoints存放路径
+* TRAIN_DIR：训练出来的模型保存位置的路径
+* DATASET_DIR：训练数据所在路径
+* DATASET_NAME：对应于 制作tfrecord部分的(2)点提及的第5个参数，模型调用xxx/my_tf_slim/datasets/my_dataset.py文件，指定了的detfrecord的方法以及翻转，crop等数据预处理方法&lt;/p&gt;
 
 &lt;p&gt;所有网络参数意义及其使用方法, 详见&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;官方文档1&lt;/a&gt;
-训练完结之后验证模型模型的步骤, 也写在了xxx/tf&lt;em&gt;slim/my&lt;/em&gt;scripts.txt上, 主要参数与训练时意义一样
-如图,inceptionV3模型训练过程被顺利启动&lt;br&gt;
-&lt;div align=center&gt;&lt;img src=&quot;/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png&quot; alt=&quot;&quot;&gt;&lt;/div&gt;   &lt;/p&gt;
+训练完结之后验证模型模型的步骤, 也写在了xxx/tf_slim/my_scripts.txt上, 主要参数与训练时意义一样
+如图,inceptionV3模型训练过程被顺利启动&lt;br /&gt;
+&lt;img src=&quot;/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
-&lt;h3&gt;5.结果&lt;/h3&gt;
-
-&lt;p&gt;使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎效.  &lt;/p&gt;
+&lt;h3 id=&quot;section-3&quot;&gt;5.结果&lt;/h3&gt;
+&lt;p&gt;使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎效.&lt;/p&gt;
 
 &lt;p&gt;实验效果不好, 我分析的工作写在了第二篇了&lt;/p&gt;
 </description>
@@ -289,47 +320,49 @@ python train_image_classifier.py \
       <item>
         <title>Hello World!</title>
         <description>&lt;blockquote&gt;
-&lt;p&gt;从学期始到学期末，各种事情不消停，终于终于终于...搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog? &lt;/p&gt;
+  &lt;p&gt;从学期始到学期末，各种事情不消停，终于终于终于…搞出来了。所以第一篇, 程序员style就该 say Hello world! 诶,难道不应该是Hello Blog?&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2&gt;1.初心&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;1.初心&lt;/h2&gt;
+&lt;p&gt;为什么搭博客?当然是因为&lt;strong&gt;酷炫&lt;/strong&gt;啊,没毛病!&lt;/p&gt;
 
-&lt;p&gt;为什么搭博客?当然是因为&lt;strong&gt;酷炫&lt;/strong&gt;啊,没毛病! &lt;/p&gt;
-
-&lt;h4&gt;归档&lt;/h4&gt;
-
+&lt;h4 id=&quot;section-1&quot;&gt;归档&lt;/h4&gt;
 &lt;p&gt;代码要写好注释，文件要写好ReadMe，每段时间的工作就是要写好博客啦！归档自己每段时间的工作内容才是用博客的正事啊。研一马上过去，看着浏览器收藏夹里密密麻麻的地址，学到的东西还是很多的，有时候感觉到一些东西乱七八糟的堆放在一块，找啊找不到，所以要写博客用来梳理一下。&lt;/p&gt;
 
-&lt;h4&gt;连续&lt;/h4&gt;
-
+&lt;h4 id=&quot;section-2&quot;&gt;连续&lt;/h4&gt;
 &lt;p&gt;目前我在OS X，Win，Ubuntu，3个系统中切来切去，虽说我也没什么代码量但是它们还是不可避免的分布在各个地方，我是想用 &lt;strong&gt;博客+GitHub&lt;/strong&gt; 的方式对这些东西有一个连续的，集中的管理。这让我突然想起了，在QQ空间，人人，微博，朋友圈上，人不同时段的成长的记录被分割在各个时段风靡的社交媒体中，应该是不能够有父辈们的桥段“一个布满了灰层的日记本”。哎，这么一说，以后有个自留地能写写长文还是挺好的。&lt;/p&gt;
 
-&lt;h4&gt;梳理&lt;/h4&gt;
-
+&lt;h4 id=&quot;section-3&quot;&gt;梳理&lt;/h4&gt;
 &lt;p&gt;“If you can’t explain it simply, you don’t understand it well enough.”
 写的过程就是再理解的过程，通过写，又可以重新去理解学过的东西，思考心中闪过的想法。&lt;/p&gt;
 
-&lt;h4&gt;展示&lt;/h4&gt;
-
+&lt;h4 id=&quot;section-4&quot;&gt;展示&lt;/h4&gt;
 &lt;p&gt;当然是希望我的博客不只是技术的博客，还能有写一些自己对于生活过程中的一些随想，还有整个博客的风格能让我随心所欲的修改啊。这是个人风格的展示,也当作是一种练习吧。&lt;/p&gt;
 
-&lt;h2&gt;2.搭建&lt;/h2&gt;
-
+&lt;h2 id=&quot;section-5&quot;&gt;2.搭建&lt;/h2&gt;
 &lt;p&gt;搜一搜 github pages 搭建博客的例子就很多。&lt;a href=&quot;http://www.ezlippi.com/blog/2015/03/github-pages-blog.html&quot;&gt;这个教程&lt;/a&gt;写的清晰一些。
  大体上的步骤:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;必备git的一些知识，推荐&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;廖雪峰的Git教程&lt;/a&gt;，之前图方便使用图形化界面Github Desktop，然而被绕晕了，还是敲命令行省事，还是要保持围笑...&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Github 上建立网站的仓库，以及使用 Jekyll 模板。我是借用了&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io&quot;&gt;Hux&lt;/a&gt;和&lt;a href=&quot;https://github.com/cnfeat/cnfeat.github.io&quot;&gt;读立写生&lt;/a&gt;。修改模板还是花了些精力，但是不需要我懂前端，查一下 Jekyll的文档, 多调试一下，就大概知道博客的每一块与哪个目录相对应了。&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;绑定域名，使用原始的域名github.io总觉得很繁琐，而且有些博客指出这种域名似乎不能够被百度爬虫爬到（也就是不能够被百度搜索到）。所以我在阿里云万网上注册了域名，&lt;a href=&quot;https://wanwang.aliyun.com/&quot;&gt;在这&lt;/a&gt;，然后依据&lt;a href=&quot;https://www.zhihu.com/question/31377141&quot;&gt;指导1&lt;/a&gt;和&lt;a href=&quot;http://www.cnblogs.com/olddoublemoon/p/6629398.html&quot;&gt;指导2&lt;/a&gt;进行绑定，可能阿里云各种注册手续有些麻烦...&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;开始写作吧，Markdown语法边写边练  &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;必备git的一些知识，推荐&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;廖雪峰的Git教程&lt;/a&gt;，之前图方便使用图形化界面Github Desktop，然而被绕晕了，还是敲命令行省事，还是要保持围笑…&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Github 上建立网站的仓库，以及使用 Jekyll 模板。我是借用了&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io&quot;&gt;Hux&lt;/a&gt;和&lt;a href=&quot;https://github.com/cnfeat/cnfeat.github.io&quot;&gt;读立写生&lt;/a&gt;。修改模板还是花了些精力，但是不需要我懂前端，查一下 Jekyll的文档, 多调试一下，就大概知道博客的每一块与哪个目录相对应了。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;绑定域名，使用原始的域名github.io总觉得很繁琐，而且有些博客指出这种域名似乎不能够被百度爬虫爬到（也就是不能够被百度搜索到）。所以我在阿里云万网上注册了域名，&lt;a href=&quot;https://wanwang.aliyun.com/&quot;&gt;在这&lt;/a&gt;，然后依据&lt;a href=&quot;https://www.zhihu.com/question/31377141&quot;&gt;指导1&lt;/a&gt;和&lt;a href=&quot;http://www.cnblogs.com/olddoublemoon/p/6629398.html&quot;&gt;指导2&lt;/a&gt;进行绑定，可能阿里云各种注册手续有些麻烦…&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;开始写作吧，Markdown语法边写边练&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;3.开始吧&lt;/h2&gt;
-
-&lt;p&gt;订个小目标, 一个月起码写一篇吧, 关于技术学习也好, 关于生活感悟也好&lt;br&gt;
-点滴积累, 野蛮生长&lt;br&gt;
+&lt;h2 id=&quot;section-6&quot;&gt;3.开始吧&lt;/h2&gt;
+&lt;p&gt;订个小目标, 一个月起码写一篇吧, 关于技术学习也好, 关于生活感悟也好&lt;br /&gt;
+点滴积累, 野蛮生长&lt;br /&gt;
 那就开始吧!&lt;/p&gt;
+
 </description>
         <pubDate>Wed, 28 Jun 2017 00:00:00 +0800</pubDate>
         <link>https://nicehjia.me/blog/2017/06/28/hello-world/</link>
