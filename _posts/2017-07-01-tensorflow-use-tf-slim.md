@@ -199,8 +199,8 @@ python train_image_classifier.py \
 所有网络参数意义及其使用方法, 详见[官方文档1](https://github.com/tensorflow/models/tree/master/slim#Data)
 训练完结之后验证模型模型的步骤, 也写在了xxx/tf_slim/my_scripts.txt上, 主要参数与训练时意义一样
 如图,inceptionV3模型训练过程被顺利启动  
-![](/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png){: .center-image}   
 
+![](/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png){: .center-image}   
 
 ### 5.结果
 使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎效.  

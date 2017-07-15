@@ -1,7 +1,7 @@
 ---
 layout: post
-title: markdown踩坑
-subtitle: 
+title: Markdown踩坑
+subtitle: 写博客遇到的问题,持续更新
 date: 2017-07-07
 categories: blog
 tags: [markdown]
@@ -9,9 +9,10 @@ description: 练习使用markdown语法
 ---
 我以为markdown语法就是那么简单, 我错了... 在本地编辑的好好的文章,上传到github之后, 格式就各种不能显示, 心累 ...
 
-查过资料 markdown的文件有好几种解析器( maruku, rdiscount, kramdown,  redcarpet ) github支持的 jekyll 默认用的是kramdown 所以, 有些语法在本地显示的效果非常ok, 一上传显示效果就给给跪 ,也许就是因为这个原因吧, 所以 百度上面搜出的一些markdown语法, 比如图片居中, 字体变色啊 , 不是所有的都适用的...** 还是要用Google直接把遇到的问题换成英语描述直接搜索**  
+查过资料 markdown的文件有好几种解析器( maruku, rdiscount, kramdown,  redcarpet ) github支持的 jekyll 默认用的是kramdown 所以, 有些语法在本地显示的效果非常ok, 一上传显示效果就给给跪 ,也许就是因为这个原因吧, 所以 百度上面搜出的一些markdown语法, 比如图片居中, 字体变色啊 , 不是所有的都适用的... **还是要用Google直接把遇到的问题换成英语描述直接搜索**  
 
-## 一些问题
+## 一些问题  
+
 #### 不能显示文章标题
 ~~~
 ---
@@ -39,7 +40,7 @@ permalink: pretty
 本来默认的是kramdown, 被我改成这个了 redcarpet, ( maruku, rdiscount,  kramdown,  redcarpet )有四种选择,然后, jekyll serve 本地调试 ,世界....都清净了...
 
 后记
-然而github默认的jekyll只认kramdown,所以只能 继续寻找kramdown下的解决方法
+然而github默认的jekyll只认kramdown,所以只能 继续寻找kramdown下的解决方法  
 
 #### 图片居中
 直接改CSS
@@ -51,7 +52,10 @@ permalink: pretty
 ~~~
  ![](/my-image){: .center-image}
 ~~~
+  
+  
 #### 字体颜色修改
+
 从HTML方法修改, 格式如下
 ~~~
 <span style='color:OrangeRed '>xxx</span>
