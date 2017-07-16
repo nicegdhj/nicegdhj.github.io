@@ -15,7 +15,7 @@ description: TF-Slim指南之一
 </span>
 
 卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了...刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!  
-本次实验[代码存放地址](https://github.com/nicegdhj/GoDeepLearning)
+本次实验[代码存放地址](https://github.com/nicegdhj/GoDeepLearning/tree/master/my-tf-slim-demo)
 
 ## 1.TF-Slim是什么 ##
 TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API, 	一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.
