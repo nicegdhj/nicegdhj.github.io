@@ -106,7 +106,7 @@
                     
                     <h2 class="subheading">快速使用CNN进行图片分类</h2>
                     
-                    <span class="meta">Posted on 17-02-07</span>
+                    <span class="meta">Posted on 17-07-02</span>
                 </div>
             </div>
         </div>
@@ -129,7 +129,7 @@
 </span></p>
 
 <p>卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了…刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!<br />
-本次实验<a href="https://github.com/nicegdhj/GoDeepLearning">代码存放地址</a></p>
+本次实验<a href="https://github.com/nicegdhj/GoDeepLearning/tree/master/my-tf-slim-demo">代码存放地址</a></p>
 
 <h2 id="tf-slim">1.TF-Slim是什么</h2>
 <p>TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API, 	一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.</p>
@@ -258,66 +258,69 @@ flags.DEFINE_string(‘dataset_dir’, ‘/home/data/classifyByLabel_data’, �
 <p>在第2部分提到过,slim在datasets 目录下只写了4个公开数据集的处理方式(包括了tf-record格式的decode, batchsize批读取等), 所以要处理我们的尘肺病图片, 还需要编写这部分的操作<br />
 我按照了xxx/tf-slim/scrpits/finetune_inception_v3_on_flowers.sh 的脚本,找到了finetune的命令,按照datasets/flower.py 文件修改得到datasets/my_dataset.py ,使用时,需要相应参数</p>
 
-<p>```Python
-<em>FILE_PATTERN = ‘mydata</em>%s_*.tfrecord’</p>
+<pre><code class="language-Python">_FILE_PATTERN = 'mydata_%s_*.tfrecord'
 
-<p>SPLITS_TO_SIZES = {‘train_data’: 800, ‘validation’: 200}</p>
+SPLITS_TO_SIZES = {'train_data': 800, 'validation': 200}
 
-<p>_NUM_CLASSES = 4</p>
+_NUM_CLASSES = 4
 
-<p>_ITEMS_TO_DESCRIPTIONS = {
-    ‘image’: ‘my image ‘,
-    ‘label’: ‘between 0 and 3’,
+_ITEMS_TO_DESCRIPTIONS = {
+    'image': 'my image ',
+    'label': 'between 0 and 3',
 }
-```
-* 第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数
-* 第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量
-* 第三个参数：分类数量
-* 第四个参数：对于数据集的描述，不重要</p>
+</code></pre>
+<ul>
+  <li>第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数</li>
+  <li>第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量</li>
+  <li>第三个参数：分类数量</li>
+  <li>第四个参数：对于数据集的描述，不重要</li>
+</ul>
 
 <h3 id="section-2">4.模型训练</h3>
 <p>单机fine-tune，整理后的数据集规模也才2000张图片，对于深度学习模型而言无疑是非常小的数据集，所以我们有必要使用fine-tune迁移学习的思路，以本次使用网络InceptionV3为例，InceptionV3,使用在通用数据集ImageNet上训练好的模型，然后针对最后几层使用我们的数据集单独训练，这样训练出来的模型才会有一个比较好分类效果。
 首先，我们需要预先下载训练好的模型, 在<a href="https://github.com/tensorflow/models/tree/master/slim#Data">https://github.com/tensorflow/models/tree/master/slim#Data</a> 列表中选择InceptionV3的checkpoint项进行下载
 然后终端在xxx/tf_slim/目录下执行以下训练用的命令，包括验证命令,我都写在了xxx/tf_slim/my_scripts.txt上, 例如</p>
 
-<p>```python
-#inceptionV3
+<pre><code class="language-python">#inceptionV3
 TRAIN_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/0_1savemodel
 DATASET_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/tf_data/0_1
 DATASET_NAME=my_dataset
-PRETRAINED_CHECKPOINT_DIR=/home/nicehija/PycharmProjects/beijingproject_tensorflow/slim/tmp</p>
+PRETRAINED_CHECKPOINT_DIR=/home/nicehija/PycharmProjects/beijingproject_tensorflow/slim/tmp
 
-<p>python train_image_classifier.py \
-  –train_dir=${TRAIN_DIR} \
-  –dataset_name=${DATASET_NAME} \
-  –dataset_split_name=train \
-  –dataset_dir=${DATASET_DIR} \
-  –model_name=inception_v3 \
-  –checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
-  –checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
-  –trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
-  –max_number_of_steps=6000 \
-  –batch_size=16 \
-  –learning_rate=0.01 \
-  –learning_rate_decay_type=fixed \
-  –save_interval_secs=100 \
-  –save_summaries_secs=100 \
-  –log_every_n_steps=100 \
-  –optimizer=rmsprop \
-  –weight_decay=0.00004
-``` 
-* PRETRAINED_CHECKPOINT_DIR：上一步checkpoints存放路径
-* TRAIN_DIR：训练出来的模型保存位置的路径
-* DATASET_DIR：训练数据所在路径
-* DATASET_NAME：对应于 制作tfrecord部分的(2)点提及的第5个参数，模型调用xxx/my_tf_slim/datasets/my_dataset.py文件，指定了的detfrecord的方法以及翻转，crop等数据预处理方法</p>
+python train_image_classifier.py \
+  --train_dir=${TRAIN_DIR} \
+  --dataset_name=${DATASET_NAME} \
+  --dataset_split_name=train \
+  --dataset_dir=${DATASET_DIR} \
+  --model_name=inception_v3 \
+  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
+  --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  --trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  --max_number_of_steps=6000 \
+  --batch_size=16 \
+  --learning_rate=0.01 \
+  --learning_rate_decay_type=fixed \
+  --save_interval_secs=100 \
+  --save_summaries_secs=100 \
+  --log_every_n_steps=100 \
+  --optimizer=rmsprop \
+  --weight_decay=0.00004
+</code></pre>
+<ul>
+  <li>PRETRAINED_CHECKPOINT_DIR：上一步checkpoints存放路径</li>
+  <li>TRAIN_DIR：训练出来的模型保存位置的路径</li>
+  <li>DATASET_DIR：训练数据所在路径</li>
+  <li>DATASET_NAME：对应于 制作tfrecord部分的(2)点提及的第5个参数，模型调用xxx/my_tf_slim/datasets/my_dataset.py文件，指定了的detfrecord的方法以及翻转，crop等数据预处理方法</li>
+</ul>
 
 <p>所有网络参数意义及其使用方法, 详见<a href="https://github.com/tensorflow/models/tree/master/slim#Data">官方文档1</a>
 训练完结之后验证模型模型的步骤, 也写在了xxx/tf_slim/my_scripts.txt上, 主要参数与训练时意义一样
-如图,inceptionV3模型训练过程被顺利启动<br />
-<img src="/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png" alt="" class="center-image" /></p>
+如图,inceptionV3模型训练过程被顺利启动</p>
+
+<p><img src="/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png" alt="" class="center-image" /></p>
 
 <h3 id="section-3">5.结果</h3>
-<p>使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎效.</p>
+<p>使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎无效.</p>
 
 <p>实验效果不好, 我分析的工作写在了第二篇了</p>
 

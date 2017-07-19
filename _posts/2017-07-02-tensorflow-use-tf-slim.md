@@ -75,7 +75,7 @@ TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API
 slim 将图片转化为tf-record格式,再使用QueueRunner方式输入.  
 什么是tf-record格式? TF提供了3种方式输入数据, 以拟合下列式子为例  
 
-$$ y = x_{1}+x_{2}+6 $$
+$$y = x_{1}+x_{2}+6 $$
 
 * Preloaded data:  在TF中保存常量或不改变的变量,如式子中的6  
 * Feeding: 在TF中保存一些变量,程序运行的每一步,让Python代码来供给数据, 用tf.placeholder占位, 如算式中的x1和x2.  
@@ -141,7 +141,7 @@ FLAGS = flags.FLAGS
 在第2部分提到过,slim在datasets 目录下只写了4个公开数据集的处理方式(包括了tf-record格式的decode, batchsize批读取等), 所以要处理我们的尘肺病图片, 还需要编写这部分的操作  
 我按照了xxx/tf-slim/scrpits/finetune_inception_v3_on_flowers.sh 的脚本,找到了finetune的命令,按照datasets/flower.py 文件修改得到datasets/my_dataset.py ,使用时,需要相应参数  
 
-```Python
+~~~Python
 _FILE_PATTERN = 'mydata_%s_*.tfrecord'
 
 SPLITS_TO_SIZES = {'train_data': 800, 'validation': 200}
@@ -152,7 +152,7 @@ _ITEMS_TO_DESCRIPTIONS = {
     'image': 'my image ',
     'label': 'between 0 and 3',
 }
-```
+~~~
 * 第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数
 * 第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量
 * 第三个参数：分类数量
@@ -165,7 +165,7 @@ _ITEMS_TO_DESCRIPTIONS = {
 首先，我们需要预先下载训练好的模型, 在<https://github.com/tensorflow/models/tree/master/slim#Data> 列表中选择InceptionV3的checkpoint项进行下载
 然后终端在xxx/tf_slim/目录下执行以下训练用的命令，包括验证命令,我都写在了xxx/tf_slim/my_scripts.txt上, 例如  
 
-```python
+~~~python
 #inceptionV3
 TRAIN_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/0_1savemodel
 DATASET_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/tf_data/0_1
@@ -190,7 +190,7 @@ python train_image_classifier.py \
   --log_every_n_steps=100 \
   --optimizer=rmsprop \
   --weight_decay=0.00004
-``` 
+~~~
 * PRETRAINED_CHECKPOINT_DIR：上一步checkpoints存放路径
 * TRAIN_DIR：训练出来的模型保存位置的路径
 * DATASET_DIR：训练数据所在路径
@@ -203,6 +203,6 @@ python train_image_classifier.py \
 ![](/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png){: .center-image}   
 
 ### 5.结果
-使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎效.  
+使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎无效.  
 
 实验效果不好, 我分析的工作写在了第二篇了

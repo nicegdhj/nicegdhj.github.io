@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="进一步有进一步的欢喜">
+
+    <title>机器学习再学习 (一) - Nicehjia Blog</title>
+
+    <link rel="canonical" href="https://nicehjia.me/blog/2017/07/15/ml-regularization/">
+
+    <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+
+
+
+
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Nicehjia Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+                
+                <li>
+                    <a href="/archive/">Archive</a>
+                </li>
+                
+                <li>
+                    <a href="/tags/">Tags</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/semantic.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2">
+                <div class="post-heading">
+                    <div class="Tags">
+                        
+                        <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                        
+                    </div>
+                    <h1>机器学习再学习 (一)</h1>
+                    
+                    <h2 class="subheading">regularization与 简单理解L0, L1, L2范数作正则项的区别</h2>
+                    
+                    <span class="meta">Posted on 17-07-15</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 post-container">
+
+                <p><span style="color:OrangeRed ">这个文章主要是梳理一下对机器学习中regularization的理解, 主要还是参考了西瓜书, 知乎上相关问题,  Andrew Ng的公开课, 来源比较杂就没有列举了</span>
+### 1.简单理解
+regularization就是自己的模型加入某些规则，加入先验，缩小解空间，减小求出错误解的可能性(减少参数的候选空间，使得模型更加“简洁” )。你要把你的知识数学化告诉这个模型，对代价函数来说，就是加入对模型复杂度的惩罚(越复杂就罚数越大)</p>
+
+<p>regularization是一个<strong>trade-off</strong>,  平衡了学习过程中两个基本量，名字诸如bias-variance、拟合能力-泛化能力、损失函数-推广能力、经验风险-结构风等等</p>
+
+<h3 id="section">2.理论详解</h3>
+<p>过拟合的问题通常发生在变量（特征）过多的时候。这种情况下训练出的方程总是能很好的拟合训练数据，也就是说，我们的代价函数可能非常接近于 0 或者就为 0。但是，这样的曲线千方百计的去拟合训练数据，这样会导致它无法泛化到新的数据样本中，以至于无法预测新样本价格。在这里，术语”泛化”指的是一个假设模型能够应用到新样本的能力。新样本数据是指没有出现在训练集中的数据。
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-1.png" alt="" class="center-image" /></p>
+
+<p>过多的变量（特征），同时只有非常少的训练数据，会导致出现过度拟合的问题。因此为了解决过度拟合，有以下两个办法。
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-2.png" alt="" class="center-image" /></p>
+
+<ul>
+  <li>方法一：尽量减少选取变量的数量具体而言，我们可以人工检查每一项变量，并以此来确定哪些变量更为重要，然后，保留那些更为重要的特征变量。至于，哪些变量应该舍弃，我们以后在讨论，这会涉及到模型选择算法，这种算法是可以自动选择采用哪些特征变量，自动舍弃不需要的变量。这类做法非常有效，但是其缺点是当你舍弃一部分特征变量时，你也舍弃了问题中的一些信息。例如，也许所有的特征变量对于预测房价都是有用的，我们实际上并不想舍弃一些信息或者说舍弃这些特征变量。</li>
+  <li>方法二：正则化正则化中我们将保留所有的特征变量，但是会减小特征变量的数量级（参数数值的大小θ(j)）。这个方法非常有效，当我们有很多特征变量时，其中每一个变量都能对预测产生一点影响。正如我们在房价预测的例子中看到的那样，我们可以有很多特征变量，其中每一个变量都是有用的，因此我们不希望把它们删掉，这就导致了正则化概念的发生。接下来我们会讨论怎样应用正则化和什么叫做正则化均值，然后将开始讨论怎样使用正则化来使学习算法正常工作，并避免过拟合。</li>
+</ul>
+
+<p><img src="/img/my_article_images/20170715-ml-regularization/ml1-3.png" alt="" class="center-image" /></p>
+
+<h4 id="section-1">2.1</h4>
+<p>在前面的介绍中，我们看到了如果用一个二次函数来拟合这些数据，那么它给了我们一个对数据很好的拟合。然而，如果我们用一个更高次的多项式去拟合，最终我们可能会得到一个曲线，它能很好地拟合训练集，但却并不是一个好的结果，因为它过度拟合了数据，因此，一般性并不是很好。让我们考虑下面的假设，我们想要加上惩罚项，从而使参数 θ3 和 θ4 足够的小。
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-4.png" alt="" class="center-image" /></p>
+
+<p>这里我的意思就是，上图的式子是我们的优化目标，也就是说我们需要尽量减少代价函数的均方误差。
+对于这个函数我们对它添加一些项，加上 1000 乘以 θ3 的平方，再加上 1000 乘以 θ4 的平方
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-5.png" alt="" class="center-image" /><br />
+1000 只是我随便写的某个较大的数字而已。现在，如果我们要最小化这个函数，那么为了最小化这个新的代价函数，我们要让 θ3 和 θ4 尽可能小。因为，如果你在原有代价函数的基础上加上 1000 乘以 θ3 这一项 ，那么这个新的代价函数将变得很大，所以，当我们最小化这个新的代价函数时， 我们将使 θ3 的值接近于 0，同样 θ4 的值也接近于 0，就像我们忽略了这两个值一样。如果我们做到这一点（ θ3 和 θ4 接近 0 ），那么我们将得到一个近似的二次函数。因此，我们最终恰当地拟合了数据，我们所使用的正是二次函数加上一些非常小，贡献很小项（因为这些项的 θ3、 θ4 非常接近于0）。显然，这是一个更好的假设。
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-6.png" alt="" class="center-image" /></p>
+
+<h4 id="section-2">2.2</h4>
+<p>在我们上面的例子中，我们惩罚的只是 θ3 和 θ4 ，使这两个值均接近于零. 更一般地，这里给出了正规化背后的思路。这种思路就是，如果我们模型假设的每个参数值都对应一个较小值的话（参数值比较小），那么往往我们会得到一个拟合曲线更简单(光滑)的假设模型。<br />
+实际上，拟合参数的值越小，通常对应于越光滑的函数，也就是更加简单的函数。因此 就不易发生过拟合的问题。为什么越小的参数对应于一个相对较为简单的假设，我尚不理解其理论依据(???)，但是在上面的例子中使 θ3 和 θ4 很小，至少给了我们一些直观感受。</p>
+
+<p>来让我们看看具体的例子，对于房屋价格预测我们可能有上百种特征，与刚刚所讲的多项式例子不同，我们并不知道 θ3 和 θ4 是高阶多项式的项。所以，如果我们有一百个特征，我们并不知道如何选择关联度更好的参数，如何缩小参数的数目等等。</p>
+
+<p>因此在正则化里，我们要做的事情，就是把减小我们的代价函数（例子中是线性回归的代价函数）所有的参数值，因为我们并不知道是哪一个或哪几个要去缩小。</p>
+
+<p>因此，我们需要修改代价函数，在这后面添加一项，就像我们在方括号里的这项。当我们添加一个额外的正则化项的时候，我们收缩了每个参数。</p>
+
+<p>顺便说一下，按照惯例，我们没有去惩罚 θ0，因此 θ0 的值是大的。这就是一个约定从 1 到 n 的求和，而不是从 0 到 n 的求和。但其实在实践中这只会有非常小的差异，无论你是否包括这 θ0 这项。但是按照惯例，通常情况下我们还是只从 θ1 到 θn 进行正则化。</p>
+
+<p>下面的这项就是一个正则化项并且 λ 在这里我们称做正则化参数。λ 要做的就是控制在两个不同的目标中的平衡关系。</p>
+
+<p><span style="color:OrangeRed ">第一个目标就是我们想要训练，使假设更好地拟合训练数据。我们希望假设能够很好的适应训练集。第二个目标是我们想要保持参数值较小</span> <br />
+（通过正则化项）而 λ 这个正则化参数需要控制的是这两者之间的平衡，即平衡拟合训练的目标和保持参数值较小的目标。从而来保持假设的形式相对简单，来避免过度的拟合。对于我们的房屋价格预测来说，我们之前所用的非常高的高阶多项式来拟合，我们将会得到一个非常弯曲和复杂的曲线函数，现在我们只需要使用正则化目标的方法，那么你就可以得到一个更加合适的曲线，但这个曲线不是一个真正的二次函数，而是更加的流畅和简单的一个曲线。这样就得到了对于这个数据更好的假设。</p>
+
+<p>给出一个trade-off的理解
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-7.png" alt="" class="center-image" /><br />
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-8.png" alt="" class="center-image" /><br />
+<span style="color:OrangeRed ">这就是优化目标 即 λ 与欲学习到的参数θ1,θ2…θn 的trade-off与平衡关系的体现之处 </span></p>
+
+<h3 id="l0-ll-l2-">3.浅析 L0, Ll, L2 范数作为正则项的区别</h3>
+<p>Lp范数:</p>
+
+<ul>
+  <li>L0正则化的值是模型参数中非零参数的个数。</li>
+  <li>L1正则化表示各个参数绝对值之和。</li>
+  <li>L2正则化标识各个参数的平方的和的开方值。</li>
+</ul>
+
+<p>L0, L1 , L2 范数都可以被用作正则项防止过拟合, 那么他们的区别是什么?</p>
+
+<p>我们需要先清楚两个问题</p>
+
+<ul>
+  <li>
+    <p>参数的稀疏(求得的参数 θ0… θn 会有更多解为0的情况)有什么好处吗？ 
+&gt; 从上文中可知, 一个好处是可以简化模型，避免过拟合。因为一个模型中真正重要的参数可能并不多，如果考虑所有的参数起作用，那么可以对训练数据可以预测的很好，但是对测试数据出现过拟合。另一个好处是参数变少可以使整个模型获得更好的可解释性。</p>
+  </li>
+  <li>
+    <p>参数值越小代表模型越简单吗？
+ &gt;是的。为什么参数越小，说明模型越简单呢，这是因为越复杂的模型，越是会尝试对所有的样本进行拟合，甚至包括一些异常样本点，这就容易造成在较小的区间里预测值产生较大的波动，这种较大的波动也反映了在这个区间里的导数很大，而只有较大的参数值才能产生较大的导数。因此复杂的模型，其参数值会比较大。</p>
+  </li>
+</ul>
+
+<p>根据这个认识, 稀疏的参数可以防止过拟合</p>
+
+<ul>
+  <li>
+    <p>L0正则化: 从直观上看, 直接利用非零参数的个数，可以很好的来选择特征，实现特征稀疏的效果，具体操作时选择参数非零的特征即可。但实际上L0正则化很难求解(不连续, 难以优化求解)，是个NP难问题 .</p>
+  </li>
+  <li>
+    <p>L1正则化: L1正则化在实际中往往替代L0正则化, L1正则化之所以可以防止过拟合，是因为L1范数就是各个参数的绝对值相加得到的，我们前面讨论了，参数值大小和模型复杂度是成正比的。因此复杂的模型，其L1范数就大，最终导致损失函数就大，说明这个模型就不够好。L0的近似在也称Lasso。</p>
+  </li>
+  <li>
+    <p>L2正则化: L2正则化可以防止过拟合的原因和L1正则化一样，只是形式不太一样。L2范数是各参数的平方和再求平方根，我们让L2范数的正则项最小，可以使W的每个元素都很小，都接近于0。但与L1范数不一样的是，它不会是每个元素为0，而只是接近于0。越小的参数说明模型越简单，越简单的模型越不容易产生过拟合现象。L2正则化也称Ridge，也称“岭回归”。</p>
+  </li>
+</ul>
+
+<p>L1范数比L2范数更加易于获得稀疏解, 但是为什么呢?我查了很久, 老实说并没有搞懂所以下面的描述很模糊</p>
+
+<p>我依据资料模糊总结了些:<br />
+从概率角度, 如本文开头所说, regularization其实是加入了先验知识的体现,使用 L1 代表了假设了数据的分布符合拉普拉斯分布, 而使用L2时是假设了数据分布符合高斯分布, 从拉普拉斯分布图来看, 值为0的概率是相当大的
+<img src="/img/my_article_images/20170715-ml-regularization/ml1-9.png" alt="" class="center-image" /></p>
+
+<p>L1比L2更加容易获得稀疏解, 一些参考,我暂时不懂, <a href="https://www.zhihu.com/question/37096933?sort=created">一个是来自知乎</a>, 一个是能搜索到的PRML的经典解释与包括西瓜书P253处谈到…
+过于理论暂时无法理解…</p>
+
+<p>用法总结: L1会趋向于产生少量的特征，而其他的特征都是0，而L2会选择更多的特征，这些特征都会接近于0。Lasso在特征选择时候非常有用，而Ridge就只是一种规则化而已。在所有特征中只有少数特征起重要作用的情况下，选择Lasso比较合适，因为它能自动选择特征。而如果所有特征中，大部分特征都能起作用，而且起的作用很平均，那么使用Ridge也许更合适。</p>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/blog/2017/07/07/markdown-test/" data-toggle="tooltip" data-placement="top" title="Markdown踩坑">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+<!-- disqus  start -->
+
+<!-- <div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//cnfeat.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+ -->
+<!-- disqus end -->
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: relative;
+            /*left: -0.75em;*/
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <!-- kill the Facebook and Weibo -->
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    <!--
+                    
+                    -->
+
+                    <!--
+                    
+                    -->
+
+                    
+                    <!--
+                    
+                    -->
+
+                </ul>
+                <p class="copyright text-muted">
+                &copy; 2017  nicehjia  ❖ Powered by Jekyll.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js",function(){
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80884545-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>
+
+

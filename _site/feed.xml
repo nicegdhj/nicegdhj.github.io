@@ -5,40 +5,146 @@
     <description>进一步有进一步的欢喜</description>
     <link>https://nicehjia.me/</link>
     <atom:link href="https://nicehjia.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 13 Jul 2017 17:07:31 +0800</pubDate>
-    <lastBuildDate>Thu, 13 Jul 2017 17:07:31 +0800</lastBuildDate>
+    <pubDate>Wed, 19 Jul 2017 11:56:04 +0800</pubDate>
+    <lastBuildDate>Wed, 19 Jul 2017 11:56:04 +0800</lastBuildDate>
     <generator>Jekyll v2.5.0</generator>
     
       <item>
-        <title>markdown踩坑</title>
-        <description>&lt;p&gt;我以为markdown语法就是那么简单, 我错了… 在本地编辑的好好的文章,上传到github之后, 格式就各种不能显示, 心累 …** 一定要用Google直接把遇到的问题换成英语描述直接搜索**&lt;/p&gt;
+        <title>机器学习再学习 (一)</title>
+        <description>&lt;p&gt;&lt;span style=&quot;color:OrangeRed &quot;&gt;这个文章主要是梳理一下对机器学习中regularization的理解, 主要还是参考了西瓜书, 知乎上相关问题,  Andrew Ng的公开课, 来源比较杂就没有列举了&lt;/span&gt;
+### 1.简单理解
+regularization就是自己的模型加入某些规则，加入先验，缩小解空间，减小求出错误解的可能性(减少参数的候选空间，使得模型更加“简洁” )。你要把你的知识数学化告诉这个模型，对代价函数来说，就是加入对模型复杂度的惩罚(越复杂就罚数越大)&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;查过资料 markdown的文件有好几种解析器( maruku&lt;/td&gt;
-      &lt;td&gt;rdiscount&lt;/td&gt;
-      &lt;td&gt;kramdown&lt;/td&gt;
-      &lt;td&gt;redcarpet ), github支持的 jekyll 默认用的是kramdown这种解析器, 所以, 有些语法在本地显示的效果非常ok, 一上传显示效果就给给跪 ,难道是因为这个原因? 所以 百度上面搜出的一些markdown语法, 比如图片居中, 字体变色啊 , 不是所有的都适用的…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;regularization是一个&lt;strong&gt;trade-off&lt;/strong&gt;,  平衡了学习过程中两个基本量，名字诸如bias-variance、拟合能力-泛化能力、损失函数-推广能力、经验风险-结构风等等&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;2.理论详解&lt;/h3&gt;
+&lt;p&gt;过拟合的问题通常发生在变量（特征）过多的时候。这种情况下训练出的方程总是能很好的拟合训练数据，也就是说，我们的代价函数可能非常接近于 0 或者就为 0。但是，这样的曲线千方百计的去拟合训练数据，这样会导致它无法泛化到新的数据样本中，以至于无法预测新样本价格。在这里，术语”泛化”指的是一个假设模型能够应用到新样本的能力。新样本数据是指没有出现在训练集中的数据。
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-1.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;过多的变量（特征），同时只有非常少的训练数据，会导致出现过度拟合的问题。因此为了解决过度拟合，有以下两个办法。
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-2.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;方法一：尽量减少选取变量的数量具体而言，我们可以人工检查每一项变量，并以此来确定哪些变量更为重要，然后，保留那些更为重要的特征变量。至于，哪些变量应该舍弃，我们以后在讨论，这会涉及到模型选择算法，这种算法是可以自动选择采用哪些特征变量，自动舍弃不需要的变量。这类做法非常有效，但是其缺点是当你舍弃一部分特征变量时，你也舍弃了问题中的一些信息。例如，也许所有的特征变量对于预测房价都是有用的，我们实际上并不想舍弃一些信息或者说舍弃这些特征变量。&lt;/li&gt;
+  &lt;li&gt;方法二：正则化正则化中我们将保留所有的特征变量，但是会减小特征变量的数量级（参数数值的大小θ(j)）。这个方法非常有效，当我们有很多特征变量时，其中每一个变量都能对预测产生一点影响。正如我们在房价预测的例子中看到的那样，我们可以有很多特征变量，其中每一个变量都是有用的，因此我们不希望把它们删掉，这就导致了正则化概念的发生。接下来我们会讨论怎样应用正则化和什么叫做正则化均值，然后将开始讨论怎样使用正则化来使学习算法正常工作，并避免过拟合。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-3.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;2.1&lt;/h4&gt;
+&lt;p&gt;在前面的介绍中，我们看到了如果用一个二次函数来拟合这些数据，那么它给了我们一个对数据很好的拟合。然而，如果我们用一个更高次的多项式去拟合，最终我们可能会得到一个曲线，它能很好地拟合训练集，但却并不是一个好的结果，因为它过度拟合了数据，因此，一般性并不是很好。让我们考虑下面的假设，我们想要加上惩罚项，从而使参数 θ3 和 θ4 足够的小。
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-4.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里我的意思就是，上图的式子是我们的优化目标，也就是说我们需要尽量减少代价函数的均方误差。
+对于这个函数我们对它添加一些项，加上 1000 乘以 θ3 的平方，再加上 1000 乘以 θ4 的平方
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-5.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
+1000 只是我随便写的某个较大的数字而已。现在，如果我们要最小化这个函数，那么为了最小化这个新的代价函数，我们要让 θ3 和 θ4 尽可能小。因为，如果你在原有代价函数的基础上加上 1000 乘以 θ3 这一项 ，那么这个新的代价函数将变得很大，所以，当我们最小化这个新的代价函数时， 我们将使 θ3 的值接近于 0，同样 θ4 的值也接近于 0，就像我们忽略了这两个值一样。如果我们做到这一点（ θ3 和 θ4 接近 0 ），那么我们将得到一个近似的二次函数。因此，我们最终恰当地拟合了数据，我们所使用的正是二次函数加上一些非常小，贡献很小项（因为这些项的 θ3、 θ4 非常接近于0）。显然，这是一个更好的假设。
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-6.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;2.2&lt;/h4&gt;
+&lt;p&gt;在我们上面的例子中，我们惩罚的只是 θ3 和 θ4 ，使这两个值均接近于零. 更一般地，这里给出了正规化背后的思路。这种思路就是，如果我们模型假设的每个参数值都对应一个较小值的话（参数值比较小），那么往往我们会得到一个拟合曲线更简单(光滑)的假设模型。&lt;br /&gt;
+实际上，拟合参数的值越小，通常对应于越光滑的函数，也就是更加简单的函数。因此 就不易发生过拟合的问题。为什么越小的参数对应于一个相对较为简单的假设，我尚不理解其理论依据(???)，但是在上面的例子中使 θ3 和 θ4 很小，至少给了我们一些直观感受。&lt;/p&gt;
+
+&lt;p&gt;来让我们看看具体的例子，对于房屋价格预测我们可能有上百种特征，与刚刚所讲的多项式例子不同，我们并不知道 θ3 和 θ4 是高阶多项式的项。所以，如果我们有一百个特征，我们并不知道如何选择关联度更好的参数，如何缩小参数的数目等等。&lt;/p&gt;
+
+&lt;p&gt;因此在正则化里，我们要做的事情，就是把减小我们的代价函数（例子中是线性回归的代价函数）所有的参数值，因为我们并不知道是哪一个或哪几个要去缩小。&lt;/p&gt;
+
+&lt;p&gt;因此，我们需要修改代价函数，在这后面添加一项，就像我们在方括号里的这项。当我们添加一个额外的正则化项的时候，我们收缩了每个参数。&lt;/p&gt;
+
+&lt;p&gt;顺便说一下，按照惯例，我们没有去惩罚 θ0，因此 θ0 的值是大的。这就是一个约定从 1 到 n 的求和，而不是从 0 到 n 的求和。但其实在实践中这只会有非常小的差异，无论你是否包括这 θ0 这项。但是按照惯例，通常情况下我们还是只从 θ1 到 θn 进行正则化。&lt;/p&gt;
+
+&lt;p&gt;下面的这项就是一个正则化项并且 λ 在这里我们称做正则化参数。λ 要做的就是控制在两个不同的目标中的平衡关系。&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:OrangeRed &quot;&gt;第一个目标就是我们想要训练，使假设更好地拟合训练数据。我们希望假设能够很好的适应训练集。第二个目标是我们想要保持参数值较小&lt;/span&gt; &lt;br /&gt;
+（通过正则化项）而 λ 这个正则化参数需要控制的是这两者之间的平衡，即平衡拟合训练的目标和保持参数值较小的目标。从而来保持假设的形式相对简单，来避免过度的拟合。对于我们的房屋价格预测来说，我们之前所用的非常高的高阶多项式来拟合，我们将会得到一个非常弯曲和复杂的曲线函数，现在我们只需要使用正则化目标的方法，那么你就可以得到一个更加合适的曲线，但这个曲线不是一个真正的二次函数，而是更加的流畅和简单的一个曲线。这样就得到了对于这个数据更好的假设。&lt;/p&gt;
+
+&lt;p&gt;给出一个trade-off的理解
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-7.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-8.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
+&lt;span style=&quot;color:OrangeRed &quot;&gt;这就是优化目标 即 λ 与欲学习到的参数θ1,θ2…θn 的trade-off与平衡关系的体现之处 &lt;/span&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;l0-ll-l2-&quot;&gt;3.浅析 L0, Ll, L2 范数作为正则项的区别&lt;/h3&gt;
+&lt;p&gt;Lp范数:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;L0正则化的值是模型参数中非零参数的个数。&lt;/li&gt;
+  &lt;li&gt;L1正则化表示各个参数绝对值之和。&lt;/li&gt;
+  &lt;li&gt;L2正则化标识各个参数的平方的和的开方值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;L0, L1 , L2 范数都可以被用作正则项防止过拟合, 那么他们的区别是什么?&lt;/p&gt;
+
+&lt;p&gt;我们需要先清楚两个问题&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;参数的稀疏(求得的参数 θ0… θn 会有更多解为0的情况)有什么好处吗？ 
+&amp;gt; 从上文中可知, 一个好处是可以简化模型，避免过拟合。因为一个模型中真正重要的参数可能并不多，如果考虑所有的参数起作用，那么可以对训练数据可以预测的很好，但是对测试数据出现过拟合。另一个好处是参数变少可以使整个模型获得更好的可解释性。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;参数值越小代表模型越简单吗？
+ &amp;gt;是的。为什么参数越小，说明模型越简单呢，这是因为越复杂的模型，越是会尝试对所有的样本进行拟合，甚至包括一些异常样本点，这就容易造成在较小的区间里预测值产生较大的波动，这种较大的波动也反映了在这个区间里的导数很大，而只有较大的参数值才能产生较大的导数。因此复杂的模型，其参数值会比较大。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;根据这个认识, 稀疏的参数可以防止过拟合&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;L0正则化: 从直观上看, 直接利用非零参数的个数，可以很好的来选择特征，实现特征稀疏的效果，具体操作时选择参数非零的特征即可。但实际上L0正则化很难求解(不连续, 难以优化求解)，是个NP难问题 .&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;L1正则化: L1正则化在实际中往往替代L0正则化, L1正则化之所以可以防止过拟合，是因为L1范数就是各个参数的绝对值相加得到的，我们前面讨论了，参数值大小和模型复杂度是成正比的。因此复杂的模型，其L1范数就大，最终导致损失函数就大，说明这个模型就不够好。L0的近似在也称Lasso。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;L2正则化: L2正则化可以防止过拟合的原因和L1正则化一样，只是形式不太一样。L2范数是各参数的平方和再求平方根，我们让L2范数的正则项最小，可以使W的每个元素都很小，都接近于0。但与L1范数不一样的是，它不会是每个元素为0，而只是接近于0。越小的参数说明模型越简单，越简单的模型越不容易产生过拟合现象。L2正则化也称Ridge，也称“岭回归”。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;L1范数比L2范数更加易于获得稀疏解, 但是为什么呢?我查了很久, 老实说并没有搞懂所以下面的描述很模糊&lt;/p&gt;
+
+&lt;p&gt;我依据资料模糊总结了些:&lt;br /&gt;
+从概率角度, 如本文开头所说, regularization其实是加入了先验知识的体现,使用 L1 代表了假设了数据的分布符合拉普拉斯分布, 而使用L2时是假设了数据分布符合高斯分布, 从拉普拉斯分布图来看, 值为0的概率是相当大的
+&lt;img src=&quot;/img/my_article_images/20170715-ml-regularization/ml1-9.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;L1比L2更加容易获得稀疏解, 一些参考,我暂时不懂, &lt;a href=&quot;https://www.zhihu.com/question/37096933?sort=created&quot;&gt;一个是来自知乎&lt;/a&gt;, 一个是能搜索到的PRML的经典解释与包括西瓜书P253处谈到…
+过于理论暂时无法理解…&lt;/p&gt;
+
+&lt;p&gt;用法总结: L1会趋向于产生少量的特征，而其他的特征都是0，而L2会选择更多的特征，这些特征都会接近于0。Lasso在特征选择时候非常有用，而Ridge就只是一种规则化而已。在所有特征中只有少数特征起重要作用的情况下，选择Lasso比较合适，因为它能自动选择特征。而如果所有特征中，大部分特征都能起作用，而且起的作用很平均，那么使用Ridge也许更合适。&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 15 Jul 2017 00:00:00 +0800</pubDate>
+        <link>https://nicehjia.me/blog/2017/07/15/ml-regularization/</link>
+        <guid isPermaLink="true">https://nicehjia.me/blog/2017/07/15/ml-regularization/</guid>
+        
+        <category>机器学习</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>Markdown踩坑</title>
+        <description>&lt;p&gt;我以为markdown语法就是那么简单, 我错了… 在本地编辑的好好的文章,上传到github之后, 格式就各种不能显示, 心累 …&lt;/p&gt;
+
+&lt;p&gt;查过资料 markdown的文件有好几种解析器( maruku, rdiscount, kramdown,  redcarpet ) github支持的 jekyll 默认用的是kramdown 所以, 有些语法在本地显示的效果非常ok, 一上传显示效果就给给跪 ,也许就是因为这个原因吧, 所以 百度上面搜出的一些markdown语法, 比如图片居中, 字体变色啊 , 不是所有的都适用的… &lt;strong&gt;还是要用Google直接把遇到的问题换成英语描述直接搜索&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;一些问题&lt;/h2&gt;
-&lt;p&gt;#### 不能显示文章标题&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;```&lt;/h2&gt;
-&lt;p&gt;layout: post
+&lt;h4 id=&quot;section-1&quot;&gt;不能显示文章标题&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;---
+layout: post
 title: markdown踩坑
 subtitle: 
 date: 2017-07-06
 categories: blog
 tags: [markdown]
 description: 练习使用markdown语法
-—
-```
-一开始文章标题一直无法显示, 我以为是有汉字的原因, 各种找…&lt;br /&gt;
-结果是, 空格, 引号后面记得空格. &lt;br /&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一开始文章标题一直无法显示, 我以为是有汉字的原因, 各种去找原因, 结果是, 空格, 引号后面记得空格. &lt;br /&gt;
 包括标题#/##/###…等 需要空格, 而有很多格式表示又不需要空格,注意区分&lt;/p&gt;
 
 &lt;h4 id=&quot;section-2&quot;&gt;修改解析器&lt;/h4&gt;
@@ -49,7 +155,7 @@ markdown: redcarpet
 highlighter: redcarpet
 permalink: pretty
 &lt;/code&gt;
-本来默认的是kramdown, 被我改成这个了 redcarpet, ( maruku | rdiscount | kramdown | redcarpet )有四种选择,然后, jekyll serve 本地调试 ,世界….都清净了…&lt;/p&gt;
+本来默认的是kramdown, 被我改成这个了 redcarpet, ( maruku, rdiscount,  kramdown,  redcarpet )有四种选择,然后, jekyll serve 本地调试 ,世界….都清净了…&lt;/p&gt;
 
 &lt;p&gt;后记
 然而github默认的jekyll只认kramdown,所以只能 继续寻找kramdown下的解决方法&lt;/p&gt;
@@ -62,10 +168,12 @@ permalink: pretty
 ~~~
 之后对居中图片
 ~~~
-&lt;img src=&quot;/my-image&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;
-~~~
-#### 字体颜色修改
-从HTML方法修改, 格式如下
+ &lt;img src=&quot;/my-image&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;
+~~~&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;字体颜色修改&lt;/h4&gt;
+
+&lt;p&gt;从HTML方法修改, 格式如下
 ~~~
 &lt;span style=&quot;color:OrangeRed &quot;&gt;xxx&lt;/span&gt;
 ~~~
@@ -85,13 +193,60 @@ permalink: pretty
     
       <item>
         <title>TF-Slim指南  (二)</title>
-        <description>&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/loss.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
-可以看见,此次实验的loss 几乎改变很小, 是不是意味着模型几乎没有学习到什么内容? 费解.我个人的理解是,使用finetune(我们的实验修改了两层,InceptionV3/Logits,InceptionV3/AuxLogits ) 相当于是在一个拟合好函数, 一个很小的范围进行边边角角的修改,所以才会出现这种曲线.&lt;br /&gt;
-用尘肺病数据完全重新(scratch方法)训练模型, 因为实验条件限制, 只训练了10000代(就耗时3天, deep的方法就!是!要!吃!硬!件!啊!天! ,泪奔…),得到loss曲线如下图&lt;/p&gt;
+        <description>&lt;p&gt;&lt;span style=&quot;color:OrangeRed &quot;&gt;使用TF-Slim中写好的InceptionV3网络对胸部X光片进行分类, 包括了对结果进行了分析以及探索了一下CNN常用的图像预处理方法&lt;/span&gt;
+## 1.结果分析
+承接第一篇文章的结尾, 对我的实验结果进行分析&lt;br /&gt;
+### 1.1参数设置的问题吗?
+结果不好, 很自然就想到是不是参数的问题. 都知道深度学习参数的设置是门玄学(或者说整个机器学习的参数设置都有这么一丝味道???), 知乎上都戏称炼丹. 深度学习的参数的设置以及训练策略的选择确实是一个很吃经验的地方. 但是细想, 我觉得应该不是参数的问题 , 因为我的finetune是按照官方scrpits目录下训练脚本设定的, batchsize,是最大的不同(batchszie 与内存,显存相关), 可以说它原本脚本参数设定已经是非常合适的, 就算我与它有些许出入, 不至于我的整个模型基本无效.&lt;/p&gt;
+
+&lt;h3 id=&quot;finetunescratch&quot;&gt;1.2 finetune与scratch的原因吗?&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/loss.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
+上图是本次finetune实验的loss变化图, 可以看见loss几乎改变很小, 是不是意味着模型几乎没有学习到什么内容? 费解.&lt;br /&gt;
+我个人的理解是,使用finetune(我们的实验修改了两层, InceptionV3/Logits, InceptionV3/AuxLogits ), 这种方法相当于是在一个拟合好的模型基础上, 然后在一个很小的范围进行边边角角的修改,所以才会出现这种曲线. 如果是完全重新(scratch)训练模型,是不是意味着起始loss会比较高而loss的变化曲线也会更加陡峭?&lt;br /&gt;
+为了对比, 我又用尘肺病数据进行scratch方法的训练, 因为实验条件限制, 只训练了10000代(耗时3天, deep的方法就!是!要!吃!硬!件!啊!天! , 对,我是用CPU跑的, 还是要保持围笑…),得到loss曲线如下图,可以看见起始loss很高, 下降很快很平稳, 虽然只训练了10000代但也印证了我对于finetune与scratch的一些的理解.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/scratch_loss.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;可以看见起始loss很高, 下降也很快很平稳, 虽然只训练了10000代但也印证了一些我上面提到一些的理解. 一度怀疑&lt;/p&gt;
+&lt;p&gt;finetune这个方法是迁移学习的的思路, 即在目标任务数据较少时, 期望借助从源领域学习到的知识, 迁移到目标领域. 因为CNN较低层学习到了图片上物体的一些通用特征, 而较高的层学习到的是各类的特有特征( 我的理解大概是, 像素—&amp;gt;纹理,形状等—&amp;gt;部位—&amp;gt;整体 这么个比方) , 像素, 纹理, 形状这些低级的特征是所有物体的都可能有的一些共性(类似与线性代数中的基向量) , 而部位, 整体这些就是各种物体所独有的特征, 所以把在源领域训练好的CNN模型迁移到目标领域的时候, 较低层的特征类似而只需要训练最后几层的参数, 这是finetune的一个基本思路. 但是这种迁移, 目前我所知道到一些情形是多用在自然物体数据上, 比如ImageNet训练出的模型(1000分类)迁移到几十种花的图片分类的问题上. 在自然物体数据上这样做是OK的, 那医学图片与自然图片至少在我们看来差别还是蛮大的, 它们也有这种共性吗?&lt;br /&gt;
+ 所以, 我首先猜测用scratch训练我们的数据会不会好, 但由于前文所诉, 一是硬件条件不够, 二是这么做没有意义, deep learning就是基于海量数据才会有很好的效果, 2000张的图片直接scratch训练效果我觉的不乐观, 三是直接scratch的话调参的因素可能会比较大, 目前我还没有这么多经验.&lt;/p&gt;
+
+&lt;p&gt;后来查了一些paper , finetune即使在医学图片的数据集上也是有效果的.参考&lt;a href=&quot;https://arxiv.org/abs/1602.03409&quot;&gt;Deep Convolutional Neural Networks for Computer-Aided Detection: CNN Architectures,Dataset Characteristics and Transfer Learning&lt;/a&gt; 引用一段,
+&amp;gt;Our hypothesis on CNN parameter transfer learning is the following: despite the disparity between natural images and natural images, CNNs comprehensively trained on the large scale well-annotated ImageNet may still be transferred to make medical image recognition tasks more effective. Collecting and annotating large numbers of medical images still poses significant challenges. On the other hand, the mainstream deep CNN architectures (e.g., AlexNet and GoogLeNet) contain tens of millions of free parameters to train, and thus require sufficiently large numbers of labeled medical images.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/03.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;1.3 预处理的原因吗?&lt;/h3&gt;
+&lt;p&gt;接下来我把目光放了分析图像预处理的问题, 事实上数据的预处理绝对是将机器学习结合实际问题时要花费大精力去处理的部分.
+在这里需要描述一下任务以及数据集&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;医学上如何从X光片鉴别尘肺病简单示例如下图, 只有0,1,2,3 期的类别标签,  其中0期为正常, 个人理解 ,分类依据主要是依据的是聚集的絮状物的多少&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/04.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;我们的原始数据 , 是X光片被直接扫描得到的图片, 一张图片大约4M左右, 细节部分有不够清晰的地方.如图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/05.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最开始的想法, 原图细节有不清晰的地方以及有噪点, 我们运用增强算法加强边缘, 降低噪点, 结果如图.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/06.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;
+然而事实上, 几种经典CNN,  AlexNet, VGG-16, GoogLeNet(Inception), ResNet 入口的图片尺寸都在200*200左右, 最大是299*299 ≈90000像素 ≈3 *90kb=270kb. 这样设计是因为他们都是为ImageNet数据集设计的, 自然图片在200~300Kb图片完全能辨识出是什么物体, 而医学图片却不然, 通常是需要医生很仔细的辨认,这正是医院放射科效率低, 深度学习用于医学图像处理提升诊断效率的巨大意义所在.&lt;br /&gt;
+我们一张图片大约是4M, 这就意味着使用这些网络的话, X光片在preprocession会被压缩到270k 左右,会丢失大量的信息, 这就意味着我们之前的对于细节的强化处理基本失效. 
+并且随着我的深入分析, &lt;a href=&quot;&quot;&gt; 运用CNN的可视化技术(原理及其技术在另一篇文章提到)&lt;/a&gt;, 从图上可看出, 发现使用的InceptionV3 在依据肺部的区域, 以及骨头的边缘, 气管的纹理对X光片进行分类. 这就说明了, 肺部区域, 骨头是我的模型分类的依据. 而聚集的絮状物并没有起到什么决定因素.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170706-tfslim-my-project/07.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;综上, 我们可以得到结论, 直接使用整张X图片(原图或简单压缩)后都是不可取的, 因为 1是使用InceptionV3(或者其他经典的CNN结构)的入口图片尺寸只允许270kb大小的图片, 在这个尺度下X光片以及丢失了很多有用信息. 2是 肺部区域, 骨头是我们这个模型的分类实质上的依据, 而非絮状物, 实质上, 当噪声已经远大于目标信息, 这个模型肯定是失败的.&lt;/p&gt;
+
+&lt;p&gt;所以, 我有查了很多资料, 主要是kaggle2016 肺癌检测比赛, 天池肺癌检测比赛, 医学图像分析实质上是一个detection任务, 数据不仅要有分类的标签, 还必须有病灶的位置标记. 一般做法是将病灶区域采样, 然后训练出关于病灶区域的分类CNN模型(二分类or 多分类), 然后用滑动窗口扫描整张图片, 跳出可能是病变的区域, 综合判断.&lt;/p&gt;
+
+&lt;p&gt;而由于尘肺病的医学上的定义, 它需要结合整个肺部的病灶区域才能给出判断, 所以还不能这样做, 但是整张X光片输入去训练,是走不通的,所以, 深度学习用于图片分析, 有所能, 有所不能.根据任务的性质与数据的特点, 正确去界定,选择合适的预处理与方法会节省很多精力.&lt;br /&gt;
+但是我也想了一些基于我们数据的一些可能预处理方法:&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 06 Jul 2017 00:00:00 +0800</pubDate>
@@ -114,7 +269,7 @@ permalink: pretty
 &lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;卷积神经网络CNN在图像识别上的威力大家耳熟能详,Tensorflow, Caffe, Keras等深度学习框架都提供了一些经典的网络的使用方法.我之前使用过Caffe, 安装,可读性,易用性个人觉得是比不上Tensorflow, 包括能借鉴的文档资料也少得多, 并且我C++已经忘光了…刚好组里有一批数据需求使用Tensorflow的分布式方法开展图像识别任务. 于是我就着手从tf-slim开始搞事情!&lt;br /&gt;
-本次实验&lt;a href=&quot;https://github.com/nicegdhj/GoDeepLearning&quot;&gt;代码存放地址&lt;/a&gt;&lt;/p&gt;
+本次实验&lt;a href=&quot;https://github.com/nicegdhj/GoDeepLearning/tree/master/my-tf-slim-demo&quot;&gt;代码存放地址&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;tf-slim&quot;&gt;1.TF-Slim是什么&lt;/h2&gt;
 &lt;p&gt;TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API, 	一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.&lt;/p&gt;
@@ -243,66 +398,69 @@ flags.DEFINE_string(‘dataset_dir’, ‘/home/data/classifyByLabel_data’, �
 &lt;p&gt;在第2部分提到过,slim在datasets 目录下只写了4个公开数据集的处理方式(包括了tf-record格式的decode, batchsize批读取等), 所以要处理我们的尘肺病图片, 还需要编写这部分的操作&lt;br /&gt;
 我按照了xxx/tf-slim/scrpits/finetune_inception_v3_on_flowers.sh 的脚本,找到了finetune的命令,按照datasets/flower.py 文件修改得到datasets/my_dataset.py ,使用时,需要相应参数&lt;/p&gt;
 
-&lt;p&gt;```Python
-&lt;em&gt;FILE_PATTERN = ‘mydata&lt;/em&gt;%s_*.tfrecord’&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;_FILE_PATTERN = &#39;mydata_%s_*.tfrecord&#39;
 
-&lt;p&gt;SPLITS_TO_SIZES = {‘train_data’: 800, ‘validation’: 200}&lt;/p&gt;
+SPLITS_TO_SIZES = {&#39;train_data&#39;: 800, &#39;validation&#39;: 200}
 
-&lt;p&gt;_NUM_CLASSES = 4&lt;/p&gt;
+_NUM_CLASSES = 4
 
-&lt;p&gt;_ITEMS_TO_DESCRIPTIONS = {
-    ‘image’: ‘my image ‘,
-    ‘label’: ‘between 0 and 3’,
+_ITEMS_TO_DESCRIPTIONS = {
+    &#39;image&#39;: &#39;my image &#39;,
+    &#39;label&#39;: &#39;between 0 and 3&#39;,
 }
-```
-* 第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数
-* 第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量
-* 第三个参数：分类数量
-* 第四个参数：对于数据集的描述，不重要&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+  &lt;li&gt;第一个参数：tfrecord 文件名， 对应于 上一步所提到的第 5 个参数&lt;/li&gt;
+  &lt;li&gt;第二个参数：上一步第二个参数将数据划分后，训练集，验证集各自的样本数量&lt;/li&gt;
+  &lt;li&gt;第三个参数：分类数量&lt;/li&gt;
+  &lt;li&gt;第四个参数：对于数据集的描述，不重要&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;section-2&quot;&gt;4.模型训练&lt;/h3&gt;
 &lt;p&gt;单机fine-tune，整理后的数据集规模也才2000张图片，对于深度学习模型而言无疑是非常小的数据集，所以我们有必要使用fine-tune迁移学习的思路，以本次使用网络InceptionV3为例，InceptionV3,使用在通用数据集ImageNet上训练好的模型，然后针对最后几层使用我们的数据集单独训练，这样训练出来的模型才会有一个比较好分类效果。
 首先，我们需要预先下载训练好的模型, 在&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;https://github.com/tensorflow/models/tree/master/slim#Data&lt;/a&gt; 列表中选择InceptionV3的checkpoint项进行下载
 然后终端在xxx/tf_slim/目录下执行以下训练用的命令，包括验证命令,我都写在了xxx/tf_slim/my_scripts.txt上, 例如&lt;/p&gt;
 
-&lt;p&gt;```python
-#inceptionV3
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;#inceptionV3
 TRAIN_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/0_1savemodel
 DATASET_DIR=/home/nicehija/PycharmProjects/3classifier_0andOthers/tf_data/0_1
 DATASET_NAME=my_dataset
-PRETRAINED_CHECKPOINT_DIR=/home/nicehija/PycharmProjects/beijingproject_tensorflow/slim/tmp&lt;/p&gt;
+PRETRAINED_CHECKPOINT_DIR=/home/nicehija/PycharmProjects/beijingproject_tensorflow/slim/tmp
 
-&lt;p&gt;python train_image_classifier.py \
-  –train_dir=${TRAIN_DIR} \
-  –dataset_name=${DATASET_NAME} \
-  –dataset_split_name=train \
-  –dataset_dir=${DATASET_DIR} \
-  –model_name=inception_v3 \
-  –checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
-  –checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
-  –trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
-  –max_number_of_steps=6000 \
-  –batch_size=16 \
-  –learning_rate=0.01 \
-  –learning_rate_decay_type=fixed \
-  –save_interval_secs=100 \
-  –save_summaries_secs=100 \
-  –log_every_n_steps=100 \
-  –optimizer=rmsprop \
-  –weight_decay=0.00004
-``` 
-* PRETRAINED_CHECKPOINT_DIR：上一步checkpoints存放路径
-* TRAIN_DIR：训练出来的模型保存位置的路径
-* DATASET_DIR：训练数据所在路径
-* DATASET_NAME：对应于 制作tfrecord部分的(2)点提及的第5个参数，模型调用xxx/my_tf_slim/datasets/my_dataset.py文件，指定了的detfrecord的方法以及翻转，crop等数据预处理方法&lt;/p&gt;
+python train_image_classifier.py \
+  --train_dir=${TRAIN_DIR} \
+  --dataset_name=${DATASET_NAME} \
+  --dataset_split_name=train \
+  --dataset_dir=${DATASET_DIR} \
+  --model_name=inception_v3 \
+  --checkpoint_path=${PRETRAINED_CHECKPOINT_DIR}/inception_v3.ckpt \
+  --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  --trainable_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
+  --max_number_of_steps=6000 \
+  --batch_size=16 \
+  --learning_rate=0.01 \
+  --learning_rate_decay_type=fixed \
+  --save_interval_secs=100 \
+  --save_summaries_secs=100 \
+  --log_every_n_steps=100 \
+  --optimizer=rmsprop \
+  --weight_decay=0.00004
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+  &lt;li&gt;PRETRAINED_CHECKPOINT_DIR：上一步checkpoints存放路径&lt;/li&gt;
+  &lt;li&gt;TRAIN_DIR：训练出来的模型保存位置的路径&lt;/li&gt;
+  &lt;li&gt;DATASET_DIR：训练数据所在路径&lt;/li&gt;
+  &lt;li&gt;DATASET_NAME：对应于 制作tfrecord部分的(2)点提及的第5个参数，模型调用xxx/my_tf_slim/datasets/my_dataset.py文件，指定了的detfrecord的方法以及翻转，crop等数据预处理方法&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;所有网络参数意义及其使用方法, 详见&lt;a href=&quot;https://github.com/tensorflow/models/tree/master/slim#Data&quot;&gt;官方文档1&lt;/a&gt;
 训练完结之后验证模型模型的步骤, 也写在了xxx/tf_slim/my_scripts.txt上, 主要参数与训练时意义一样
-如图,inceptionV3模型训练过程被顺利启动&lt;br /&gt;
-&lt;img src=&quot;/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+如图,inceptionV3模型训练过程被顺利启动&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/my_article_images/20170701-tensorflow-use-tf-slim/end.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;section-3&quot;&gt;5.结果&lt;/h3&gt;
-&lt;p&gt;使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎效.&lt;/p&gt;
+&lt;p&gt;使用深度学习进行尘肺病期别判定, 使用InceptionV3 结构, 单机CPU, fine-tune 5000代(loss已经收敛,其实初始loss就不高,2.0左右,收敛也就1.0左右). 经过多次实验, 效果很差,4分类(0, 1, 2, 3 期,样本数量平均)准确率最高只有0.275~0.3 , 相当于模型几乎无效.&lt;/p&gt;
 
 &lt;p&gt;实验效果不好, 我分析的工作写在了第二篇了&lt;/p&gt;
 </description>
