@@ -60,7 +60,34 @@ permalink: pretty
 ~~~
 <span style='color:OrangeRed '>xxx</span>
 ~~~
-<span style='color:OrangeRed '>橘红色示例</span>
+<span style='color:OrangeRed '>橘红色示例</span>  
+
+#### 公式表达
+公式显示一直有问题, 网上资料大多是提到了MathJax对数学公式进行解析, 试了很多, [参考网址](http://www.idryman.org/blog/2012/03/10/writing-math-equations-on-octopress/)    
+首先在source/_layouts/default.html 文件添加
+~~~HTML
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+~~~
+
+然后写公式的时候, 按照latex的一些格式写就好了, 写的时候搜索一下...
+
+---
+**不想持续更新的分界线...真是烦啊...**
+
 
 
 
