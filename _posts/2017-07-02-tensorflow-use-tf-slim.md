@@ -20,7 +20,7 @@ description: TF-Slim指南之一
 ## 1.TF-Slim是什么 ##
 TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API, 	一个好处是,CNN里面包含了许多类似的结构或操作(如多个重复的卷积层和多次卷积操作),使用一些TF-Slim的API可以大大简化这些代码的编写. 另一个好处是,TF-Slim里面已经包含了CNN的经典网络结构的实现,阅读代码能够看见高水准的(毕竟是tensorflow团队自己写的),各个网络基于tensorflow的整个流程实现细节,包括了预处理,训练,验证等等.这比看论文就清晰多了.
  
- **使用过程主要还是要参见**[官方文档1](https://github.com/tensorflow/models/tree/master/slim#Data)和[官方文档2](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/slim), 包含了:
+ **使用过程主要还是要参见**[官方文档1](https://github.com/tensorflow/models/tree/master/research/slim)和[官方文档2](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/slim), 包含了:
  
  * Conv2d(卷积), Conv2dTranspose (反卷积Deconv)等CNN常见的操作的TF-Slim实现方法
  * 运行demo,数据准备(转化为TFrecods格式,后面会详细提到)方法
@@ -31,11 +31,11 @@ TF-Slim 是谷歌基于Tensorflow编写的一个轻量级封装库. 提供的API
  
 基本上包括了一次图片识别任务所有步骤, 然而官方所提供的步骤只能够用于它指定数据集的图片识别任务(如cifar-10, imageNet),我需要利用这个这个框架实现在个人图片数据集上的识别任务.接下来让我们进入代码进行修改.
 
- *ps:* TF-slim在 [github上](https://github.com/tensorflow/models/tree/master/slim#Data)显示在model/slim下, 而上级目录model中包含了很多谷歌Tensorflow实现的一些领域深度学习的经典demo, 最近好像又开源了图像detection的R-CNN.
+ *ps:* TF-slim在 [github上](https://github.com/tensorflow/models/tree/master/research/slim)显示在model/slim下, 而上级目录model中包含了很多谷歌Tensorflow实现的一些领域深度学习的经典demo, 最近好像又开源了图像detection的R-CNN.
  
  
 ## 2.使用 ##
- [在这里](https://github.com/tensorflow/models/tree/master/slim#Data)是TF-Slim在github上的主页面. clone上级目录model, 选取其中的slim/到自己的文件夹即可. 因为TF-Slim(**以下简称slim,  Tensorflow简称TF**)在不断的更新, 参考教程还是要依据官方的ReadMe为准. 在这里我主要是依据我当时使用的版本(Tensorflow 1.10, 大概2017年4月左右发布的版本)进行记录,里面有一些其余的文件是我为了是实现额外的一些功能编写的,不影响原本的主体功能.下图是我的文件结构: 
+ [在这里](https://github.com/tensorflow/models/tree/master/research/slim)是TF-Slim在github上的主页面. clone上级目录model, 选取其中的slim/到自己的文件夹即可. 因为TF-Slim(**以下简称slim,  Tensorflow简称TF**)在不断的更新, 参考教程还是要依据官方的ReadMe为准. 在这里我主要是依据我当时使用的版本(Tensorflow 1.10, 大概2017年4月左右发布的版本)进行记录,里面有一些其余的文件是我为了是实现额外的一些功能编写的,不影响原本的主体功能.下图是我的文件结构: 
 
 ```
 .
