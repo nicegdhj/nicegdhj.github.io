@@ -55,6 +55,23 @@ layout: default
                     {% endif %}
                 </ul>
 
+
+
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+    owner: 'nicegdhj',
+    repo: 'nicegdhj.github.io',
+    oauth: {
+        client_id: '07b217e2993eb813e903',
+        client_secret: '44370e24ce1df48a6dfbb547750c0d77c831d25a',
+    },
+});
+gitment.render('gitmentContainer');
+</script>
+
 <!-- disqus  start -->
 
 <!-- <div id="disqus_thread"></div>
